@@ -27,3 +27,4 @@ pnpm-debug.log*
 public/imagenes/**/*.mp4
 public/imagenes/**/*.mov
 public/imagenes/**/*.avi
+public/imagenes/**/*.mp4
