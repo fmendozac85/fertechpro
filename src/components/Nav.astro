@@ -1,0 +1,65 @@
+---
+const { paginaActual = '' } = Astro.props;
+---
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-mark">F</div>
+    <span class="nav-logo-text">FerTechPro</span>
+  </a>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-menu" id="nav-menu">
+    <div class="nav-pills-mob">
+      <span class="tag tag-pm">Product Management</span>
+      <span class="tag tag-fintech">Fintech</span>
+      <span class="tag tag-ia">IA</span>
+    </div>
+    <a href="/articulos" class={paginaActual === 'articulos' ? 'active' : ''}>Articulos</a>
+    <a href="/labs" class={paginaActual === 'labs' ? 'active' : ''}>Labs</a>
+    <a href="/sobre-mi" class={paginaActual === 'sobre-mi' ? 'active' : ''}>Sobre mi</a>
+    <a href="https://www.linkedin.com/in/fernando-mendoza-canta/" target="_blank" class="nav-linkedin">LinkedIn</a>
+  </div>
+  <ul class="nav-desktop">
+    <li style="display:flex;gap:.4rem;">
+      <span class="tag tag-pm">Product Management</span>
+      <span class="tag tag-fintech">Fintech</span>
+      <span class="tag tag-ia">IA</span>
+    </li>
+    <li><a href="/articulos" class={paginaActual === 'articulos' ? 'active' : ''}>Articulos</a></li>
+    <li><a href="/labs" class={paginaActual === 'labs' ? 'active' : ''}>Labs</a></li>
+    <li><a href="/sobre-mi" class={paginaActual === 'sobre-mi' ? 'active' : ''}>Sobre mi</a></li>
+    <li><a href="https://www.linkedin.com/in/fernando-mendoza-canta/" target="_blank" style="color:var(--blue-dark);">LinkedIn</a></li>
+  </ul>
+</nav>
+<style>
+  nav{background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;padding:0 1.25rem;height:56px;display:flex;align-items:center;justify-content:space-between;}
+  .nav-logo{display:flex;align-items:center;gap:.6rem;}
+  .nav-logo-mark{width:30px;height:30px;background:var(--blue-dark);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:.9rem;color:var(--white);font-weight:600;}
+  .nav-logo-text{font-family:'Fraunces',serif;font-size:.95rem;font-weight:600;}
+  .nav-toggle{background:none;border:none;cursor:pointer;padding:.25rem;display:flex;flex-direction:column;gap:5px;}
+  .nav-toggle span{display:block;width:22px;height:2px;background:var(--black);}
+  .nav-menu{display:none;position:absolute;top:56px;left:0;right:0;background:var(--white);border-bottom:1px solid var(--border);padding:1.25rem;flex-direction:column;}
+  .nav-menu.open{display:flex;}
+  .nav-menu a{padding:.85rem 0;font-size:.9rem;border-bottom:1px solid var(--border);}
+  .nav-menu a:last-child{border-bottom:none;}
+  .nav-menu a.active,.nav-linkedin{color:var(--blue-dark);font-weight:500;}
+  .nav-pills-mob{display:flex;gap:.4rem;flex-wrap:wrap;padding:.85rem 0;border-bottom:1px solid var(--border);}
+  .nav-desktop{display:none;}
+  @media(min-width:1024px){
+    nav{padding:0 4rem;height:64px;}
+    .nav-toggle{display:none;}
+    .nav-desktop{display:flex;align-items:center;gap:2rem;list-style:none;}
+    .nav-desktop a{font-size:.85rem;color:var(--gray);}
+    .nav-desktop a:hover{color:var(--black);}
+    .nav-desktop a.active{color:var(--blue-dark);font-weight:500;}
+  }
+</style>
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const menu = document.getElementById('nav-menu');
+  toggle?.addEventListener('click', () => menu?.classList.toggle('open'));
+  document.addEventListener('click', (e) => {
+    if (!menu?.contains(e.target) && !toggle?.contains(e.target)) menu?.classList.remove('open');
+  });
+</script>

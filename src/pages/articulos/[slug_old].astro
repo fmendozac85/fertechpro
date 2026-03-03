@@ -1,0 +1,556 @@
+---
+import Base from "../../layouts/Base.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const articulos = await getCollection("articulos");
+  return articulos.map((a) => ({
+    params: { slug: a.slug },
+    props: { articulo: a },
+  }));
+}
+
+const { articulo } = Astro.props;
+const { titulo, pilar, extracto, lectura, fecha } = articulo.data;
+const { Content } = await articulo.render();
+
+const pilarLabel = {
+  pm: "Product Management",
+  fintech: "Fintech Latam",
+  ia: "IA aplicada a producto",
+};
+const fechaFormato = new Date(fecha).toLocaleDateString("es-PE", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+const urlArticulo = `https://fertechpro.com/articulos/${articulo.slug}`;
+const msgWA = encodeURIComponent(titulo + " — FerTechPro\n" + urlArticulo);
+const msgLI = encodeURIComponent(urlArticulo);
+
+const todos = await getCollection("articulos");
+const relacionados = todos
+  .filter((a) => a.slug !== articulo.slug && a.data.pilar === pilar)
+  .sort((a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf())
+  .slice(0, 3);
+---
+
+<Base titulo={`${titulo} — FerTechPro`} descripcion={extracto} tipo="article">
+  <Nav />
+  <div class="progress-bar" id="progress"></div>
+
+  <div class="breadcrumb-bar">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Inicio</a><span>›</span>
+        <a href="/articulos">Artículos</a><span>›</span>
+        <span
+          class={`tag tag-${pilar}`}
+          style="font-size:.65rem;padding:.15rem .5rem;"
+          >{pilarLabel[pilar]}</span
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class={`article-hero hero-${pilar}`}>
+    <div class="article-hero-placeholder">
+      <div class="hero-deco"></div>
+      <span class="hero-label">Tu caricatura aquí</span>
+    </div>
+  </div>
+
+  <div class="article-outer">
+    <div class="article-col">
+      <div class="article-header">
+        <div class="article-header-meta">
+          <span class={`tag tag-${pilar}`}>{pilarLabel[pilar]}</span>
+          <span class="header-date">{fechaFormato}</span>
+        </div>
+        <h1 class="article-title">{titulo}</h1>
+        <p class="article-subtitle">{extracto}</p>
+        <div class="author-bar">
+          <div class="author-info">
+            <div class="author-avatar"></div>
+            <div>
+              <div class="author-name">Fernando Mendoza</div>
+              <div class="author-meta">Senior PM · FerTechPro</div>
+            </div>
+          </div>
+          <div class="article-actions">
+            <span class="read-time">{lectura} min lectura</span>
+            <a
+              href={`https://wa.me/?text=${msgWA}`}
+              target="_blank"
+              class="share-wa">Compartir</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="article-body">
+        <Content />
+      </div>
+
+      <div class="bottom-share">
+        <span class="share-label">¿Te fue útil? Compártelo:</span>
+        <div class="share-btns">
+          <a
+            href={`https://wa.me/?text=${msgWA}`}
+            target="_blank"
+            class="share-wa">WhatsApp</a
+          >
+          <a
+            href={`https://www.linkedin.com/sharing/share-offsite/?url=${msgLI}`}
+            target="_blank"
+            class="share-li">LinkedIn</a
+          >
+        </div>
+      </div>
+
+      <div class="newsletter-cta">
+        <h3>Un artículo así, cada lunes</h3>
+        <p>Sin hype. Solo producto, fintech e IA con criterio real.</p>
+        <form
+          class="nl-form"
+          action="https://app.mailerlite.com/webforms/landing/TU_FORMULARIO"
+          method="post"
+          target="_blank"
+        >
+          <input
+            type="email"
+            name="email"
+            placeholder="tu@email.com"
+            required
+          />
+          <button type="submit">Suscribirme →</button>
+        </form>
+      </div>
+
+      <div class="author-bio">
+        <div class="author-bio-avatar">
+          <div style="width:100%;height:100%;background:var(--blue-light);">
+          </div>
+        </div>
+        <div>
+          <div class="author-bio-name">Fernando Mendoza</div>
+          <div class="author-bio-text">
+            Senior PM con 17 años liderando productos digitales en seguros,
+            retail y telecomunicaciones en Latam.
+          </div>
+          <a href="/articulos" class="author-bio-link"
+            >Ver todos los artículos →</a
+          >
+        </div>
+      </div>
+
+      {
+        relacionados.length > 0 && (
+          <div class="related">
+            <div class="related-label">Artículos relacionados</div>
+            <div class="related-grid">
+              {relacionados.map((a) => (
+                <a href={`/articulos/${a.slug}`} class="related-card">
+                  <div class={`related-img img-${a.data.pilar}`} />
+                  <div class="related-body">
+                    <span
+                      class={`tag tag-${a.data.pilar}`}
+                      style="font-size:.6rem;"
+                    >
+                      {pilarLabel[a.data.pilar]}
+                    </span>
+                    <div class="related-title">{a.data.titulo}</div>
+                    <div class="related-meta">{a.data.lectura} min lectura</div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        )
+      }
+    </div>
+  </div>
+
+  <Footer />
+</Base>
+
+<style>
+  .tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 500;
+    padding: 0.25rem 0.65rem;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+  }
+  .tag-pm {
+    background: var(--blue-light);
+    color: #1e4a8a;
+  }
+  .tag-fintech {
+    background: var(--peach);
+    color: var(--peach-dark);
+  }
+  .tag-ia {
+    background: var(--mint);
+    color: var(--mint-dark);
+  }
+  .progress-bar {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    height: 2px;
+    background: var(--blue-dark);
+    z-index: 99;
+    width: 0%;
+    transition: width 0.1s;
+  }
+  .breadcrumb-bar {
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--white);
+  }
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--gray);
+  }
+  .breadcrumb a {
+    color: var(--blue-dark);
+  }
+  .article-hero {
+    width: 100%;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: flex-end;
+    padding: 1rem 1.25rem;
+  }
+  .hero-ia {
+    background: linear-gradient(135deg, #1a1a2e 60%, #2d3561);
+  }
+  .hero-fintech {
+    background: linear-gradient(135deg, #fff5ee 60%, #ffe4d0);
+  }
+  .hero-pm {
+    background: linear-gradient(135deg, #e8f4fc 60%, #d4e8f5);
+  }
+  .hero-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 500;
+  }
+  .hero-fintech .hero-label,
+  .hero-pm .hero-label {
+    color: rgba(0, 0, 0, 0.2);
+  }
+  .article-outer {
+    padding: 2rem 0 4rem;
+  }
+  .article-col {
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+  }
+  .article-header {
+    margin-bottom: 2rem;
+  }
+  .header-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .header-date {
+    font-size: 0.72rem;
+    color: var(--gray);
+  }
+  .article-title {
+    font-family: "Fraunces", serif;
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+  }
+  .article-subtitle {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--gray);
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+  .author-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .author-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .author-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--blue-light);
+    flex-shrink: 0;
+  }
+  .author-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  .author-meta {
+    font-size: 0.72rem;
+    color: var(--gray);
+  }
+  .article-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .read-time {
+    font-size: 0.75rem;
+    color: var(--gray);
+  }
+  .share-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px;
+    background: #25d366;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .share-wa:hover {
+    background: #20ba5a;
+  }
+  .article-body {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: #2d2d3a;
+    margin-top: 2rem;
+  }
+  .article-body :global(p) {
+    margin-bottom: 1.5rem;
+  }
+  .article-body :global(h2) {
+    font-family: "Fraunces", serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 2.5rem 0 1rem;
+    color: var(--black);
+  }
+  .article-body :global(h3) {
+    font-family: "Fraunces", serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 2rem 0 0.75rem;
+    color: var(--black);
+  }
+  .article-body :global(strong) {
+    font-weight: 500;
+    color: var(--black);
+  }
+  .article-body :global(ul),
+  .article-body :global(ol) {
+    margin: 1rem 0 1.5rem 1.5rem;
+  }
+  .article-body :global(li) {
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+  }
+  .article-body :global(blockquote) {
+    border-left: 3px solid var(--blue-dark);
+    padding: 0.75rem 1.25rem;
+    margin: 2rem 0;
+    background: var(--white);
+    font-style: italic;
+    color: var(--gray);
+  }
+  .article-body :global(a) {
+    color: var(--blue-dark);
+    border-bottom: 1px solid var(--blue-light);
+  }
+  .bottom-share {
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .share-label {
+    font-size: 0.78rem;
+    color: var(--gray);
+  }
+  .share-btns {
+    display: flex;
+    gap: 0.75rem;
+  }
+  .share-li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px;
+    background: var(--blue-dark);
+    color: white;
+  }
+  .share-li:hover {
+    background: var(--blue-mid);
+  }
+  .newsletter-cta {
+    background: var(--black);
+    color: var(--white);
+    padding: 2rem;
+    margin: 2rem 0;
+    text-align: center;
+  }
+  .newsletter-cta h3 {
+    font-family: "Fraunces", serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .newsletter-cta p {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 1.25rem;
+    line-height: 1.7;
+  }
+  .nl-form {
+    display: flex;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .nl-form input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: none;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.85rem;
+    outline: none;
+    min-width: 0;
+  }
+  .nl-form button {
+    padding: 0.75rem 1.25rem;
+    background: var(--blue-dark);
+    color: var(--white);
+    border: none;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.82rem;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .related {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .related-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 1.25rem;
+  }
+  .related-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .related-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    display: flex;
+    transition: border-color 0.2s;
+  }
+  .related-card:hover {
+    border-color: var(--blue-mid);
+  }
+  .related-img {
+    width: 90px;
+    flex-shrink: 0;
+    aspect-ratio: 1;
+  }
+  .img-ia {
+    background: linear-gradient(135deg, #1a1a2e, #2d3561);
+  }
+  .img-fintech {
+    background: linear-gradient(135deg, #fff5ee, #ffe4d0);
+  }
+  .img-pm {
+    background: linear-gradient(135deg, #e8f4fc, #d4e8f5);
+  }
+  .related-body {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .related-title {
+    font-family: "Fraunces", serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .related-meta {
+    font-size: 0.7rem;
+    color: var(--gray);
+  }
+  @media (min-width: 640px) {
+    .article-col {
+      padding: 0 2rem;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 1024px) {
+    .progress-bar {
+      top: 64px;
+    }
+    .article-col {
+      padding: 0;
+    }
+    .related-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>
+
+<script>
+  window.addEventListener("scroll", () => {
+    const h = document.documentElement;
+    const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    const bar = document.getElementById("progress");
+    if (bar) bar.style.width = pct + "%";
+  });
+</script>

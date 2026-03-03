@@ -1,0 +1,104 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+const todos = await getCollection('articulos');
+const ordenados = todos.sort((a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf());
+
+const pilares = [
+  { id: 'pm', label: 'Product Management' },
+  { id: 'fintech', label: 'Fintech Latam' },
+  { id: 'ia', label: 'IA aplicada a producto' },
+];
+---
+<Base titulo="Artículos — FerTechPro" descripcion="Todos los artículos sobre Product Management, Fintech Latam e IA aplicada a producto.">
+  <Nav paginaActual="articulos" />
+
+  <div class="page-header">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Inicio</a><span>›</span><span>Artículos</span>
+      </div>
+      <h1 class="page-title">Todos los artículos</h1>
+      <p class="page-desc">Product Management, Fintech Latam e IA aplicada a producto. Un artículo por semana, cada lunes.</p>
+    </div>
+  </div>
+
+  <div class="filters-bar">
+    <div class="container">
+      <div class="filters-inner">
+        <span class="filter-label">Filtrar:</span>
+        <button class="filter-btn active-all" data-filter="all" onclick="filtrar('all', this)">
+          Todos <span class="filter-count">{ordenados.length}</span>
+        </button>
+        {pilares.map(p => (
+          <button class={`filter-btn`} data-filter={p.id} onclick={`filtrar('${p.id}', this)`}>
+            {p.label}
+            <span class="filter-count">{ordenados.filter(a => a.data.pilar === p.id).length}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="sort-bar">
+      <span class="sort-count" id="sort-count">{ordenados.length} artículos</span>
+    </div>
+    <div class="articles-grid" id="articles-grid">
+      {ordenados.map((a, i) => (
+        <div class="card-wrapper" data-pilar={a.data.pilar}>
+          <ArticleCard articulo={a} destacado={i === 0} />
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <Footer />
+</Base>
+
+<style>
+  .page-header { padding: 2.5rem 0 1.5rem; border-bottom: 1px solid var(--border); background: var(--white); }
+  .breadcrumb { display: flex; align-items: center; gap: .5rem; font-size: .75rem; color: var(--gray); margin-bottom: 1rem; }
+  .breadcrumb a { color: var(--blue-dark); }
+  .page-title { font-family: 'Fraunces', serif; font-size: clamp(1.8rem,6vw,2.8rem); font-weight: 600; line-height: 1.1; letter-spacing: -.03em; margin-bottom: .5rem; }
+  .page-desc { font-size: .88rem; color: var(--gray); line-height: 1.75; }
+  .filters-bar { padding: 1rem 0; border-bottom: 1px solid var(--border); background: var(--white); position: sticky; top: 56px; z-index: 90; }
+  .filters-inner { display: flex; align-items: center; gap: .6rem; overflow-x: auto; scrollbar-width: none; }
+  .filters-inner::-webkit-scrollbar { display: none; }
+  .filter-label { font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gray); white-space: nowrap; flex-shrink: 0; }
+  .filter-btn { display: inline-flex; align-items: center; gap: .35rem; font-size: .75rem; font-weight: 500; padding: .35rem .8rem; border-radius: 20px; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--gray); white-space: nowrap; flex-shrink: 0; font-family: 'DM Sans', sans-serif; transition: all .15s; }
+  .filter-btn:hover { border-color: var(--blue-mid); color: var(--black); }
+  .filter-btn.active-all { background: var(--black); color: var(--white); border-color: var(--black); }
+  .filter-btn.active-pm { background: var(--blue-light); color: #1e4a8a; border-color: var(--blue-light); }
+  .filter-btn.active-fintech { background: var(--peach); color: var(--peach-dark); border-color: var(--peach); }
+  .filter-btn.active-ia { background: var(--mint); color: var(--mint-dark); border-color: var(--mint); }
+  .filter-count { font-size: .62rem; background: rgba(0,0,0,.08); padding: .1rem .35rem; border-radius: 20px; }
+  .active-all .filter-count { background: rgba(255,255,255,.2); }
+  .sort-bar { padding: .85rem 0; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
+  .sort-count { font-size: .78rem; color: var(--gray); }
+  .articles-grid { display: flex; flex-direction: column; gap: 1.25rem; padding-bottom: 4rem; }
+  .card-wrapper { display: contents; }
+  @media (min-width: 640px) { .articles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; } }
+  @media (min-width: 1024px) {
+    .articles-grid { grid-template-columns: repeat(3, 1fr); }
+    .filters-bar { top: 64px; }
+  }
+</style>
+
+<script>
+  function filtrar(pilar, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.className = 'filter-btn');
+    btn.classList.add('active-' + pilar);
+    let visible = 0;
+    document.querySelectorAll('.card-wrapper').forEach(w => {
+      const mostrar = pilar === 'all' || w.dataset.pilar === pilar;
+      w.style.display = mostrar ? '' : 'none';
+      if (mostrar) visible++;
+    });
+    document.getElementById('sort-count').textContent = visible + ' artículos';
+  }
+</script>

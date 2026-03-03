@@ -1,0 +1,37 @@
+---
+const { articulo, destacado = false } = Astro.props;
+const { titulo, pilar, extracto, lectura, fecha } = articulo.data;
+const slug = articulo.slug;
+const pilarLabel = { pm: 'Product Management', fintech: 'Fintech Latam', ia: 'IA aplicada a producto' };
+const fechaFormato = new Date(fecha).toLocaleDateString('es-PE', { month: 'long', year: 'numeric' });
+---
+<a href={`/articulos/${slug}`} class={`card ${destacado ? 'card-featured' : 'card-regular'}`}>
+  <div class={`card-img img-${pilar}`}>
+    <span class="img-label">Imagen portada</span>
+  </div>
+  <div class="card-body">
+    {destacado && <span class="featured-badge">Articulo destacado</span>}
+    <span class={`tag tag-${pilar}`}>{pilarLabel[pilar]}</span>
+    <div class="card-title">{titulo}</div>
+    {extracto && <div class="card-excerpt">{extracto}</div>}
+    <div class="card-meta">
+      <span>{lectura} min lectura</span><span>·</span><span>{fechaFormato}</span>
+    </div>
+  </div>
+</a>
+<style>
+  .card{background:var(--white);border:1px solid var(--border);overflow:hidden;transition:border-color .2s,transform .2s;display:flex;flex-direction:column;}
+  .card:hover{border-color:var(--blue-mid);transform:translateY(-2px);}
+  .card-img{width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:.75rem;}
+  .img-ia{background:linear-gradient(135deg,#1a1a2e 60%,#2d3561);}
+  .img-fintech{background:linear-gradient(135deg,#fff5ee 60%,#ffe4d0);}
+  .img-pm{background:linear-gradient(135deg,#e8f4fc 60%,#d4e8f5);}
+  .img-label{font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);font-weight:500;}
+  .img-fintech .img-label,.img-pm .img-label{color:rgba(0,0,0,.2);}
+  .card-body{padding:1.25rem;display:flex;flex-direction:column;gap:.6rem;flex:1;}
+  .featured-badge{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-dark);font-weight:500;}
+  .card-title{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:600;line-height:1.25;letter-spacing:-.01em;}
+  .card-featured .card-title{font-size:1.3rem;}
+  .card-excerpt{font-size:.83rem;line-height:1.7;color:var(--gray);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  .card-meta{font-size:.7rem;color:var(--gray);display:flex;gap:.4rem;padding-top:.5rem;border-top:1px solid var(--border);margin-top:auto;}
+</style>

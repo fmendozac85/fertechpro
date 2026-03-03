@@ -1,0 +1,52 @@
+---
+export interface Props {
+  titulo?: string;
+  descripcion?: string;
+  imagen?: string;
+  tipo?: string;
+}
+const { titulo = 'FerTechPro', descripcion = 'Product Management, Fintech Latam e IA aplicada a producto.', imagen = '/imagenes/og-default.jpg', tipo = 'website' } = Astro.props;
+const urlCanonica = new URL(Astro.url.pathname, Astro.site);
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{titulo}</title>
+  <meta name="description" content={descripcion}>
+  <link rel="canonical" href={urlCanonica}>
+  <meta property="og:type" content={tipo}>
+  <meta property="og:url" content={urlCanonica}>
+  <meta property="og:title" content={titulo}>
+  <meta property="og:description" content={descripcion}>
+  <meta property="og:image" content={new URL(imagen, Astro.site)}>
+  <meta property="og:locale" content="es_PE">
+  <meta property="og:site_name" content="FerTechPro">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={titulo}>
+  <meta name="twitter:description" content={descripcion}>
+  <meta name="twitter:image" content={new URL(imagen, Astro.site)}>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="sitemap" href="/sitemap-index.xml">
+  <style is:global>
+    :root { --black:#1a1a2e;--white:#ffffff;--bg:#f9f8f5;--blue-dark:#4a90c4;--blue-mid:#79addc;--blue-light:#d4e8f5;--cream:#fcf5c7;--mint:#adf7b6;--mint-dark:#3d9e50;--peach:#ffc09f;--peach-dark:#c4622a;--gray:#6b7280;--border:#e5e7eb; }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{background:var(--bg);color:var(--black);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.6;}
+    img{max-width:100%;display:block;}
+    a{text-decoration:none;color:inherit;}
+    .tag{display:inline-block;font-size:.68rem;font-weight:500;padding:.25rem .65rem;border-radius:20px;letter-spacing:.03em;}
+    .tag-pm{background:var(--blue-light);color:#1e4a8a;}
+    .tag-fintech{background:var(--peach);color:var(--peach-dark);}
+    .tag-ia{background:var(--mint);color:var(--mint-dark);}
+    .container{width:100%;padding:0 1.25rem;margin:0 auto;}
+    @media(min-width:640px){.container{padding:0 2rem;}}
+    @media(min-width:1024px){.container{padding:0 4rem;max-width:1200px;}}
+  </style>
+</head>
+<body>
+  <slot />
+</body>
+</html>

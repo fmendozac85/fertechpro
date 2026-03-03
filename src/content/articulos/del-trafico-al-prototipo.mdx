@@ -1,0 +1,83 @@
+---
+titulo: "Del tráfico al prototipo: un caso real de IA en la carretera"
+fecha: 2025-05-28
+pilar: ia
+extracto: "¿Cómo reducir colas y mejorar la experiencia del cliente con IA? En este artículo te muestro cómo construí un prototipo de pedidos digitales para un restaurante muy popular en Lima."
+lectura: 5
+destacado: false
+imagen: /imagenes/del-trafico-al-prototipo/art4-featureImage.png
+---
+
+Si has pasado por el Km 52 de la Panamericana Sur en tu camino a disfrutar del verano o por una escapada fuera de la ciudad, seguramente habrás querido tomar tu desayuno, tu media mañana, tu lonche o media tarde con un rico pancito con queso y su cafecito en el camino. Puede que lo hayas logrado o quizá, dependiendo del día o festividad, hayas desistido en tu intento debido a la alta acumulación de carros y gente haciendo cola para hacer su pedido. En esta publicación hago un ejercicio de cómo este negocio podría mejorar su experiencia de compra digitalizando su toma pedido de forma rápida y efectiva con el poder de la IA.
+
+## El Negocio
+El restaurante se llama «Tambo Rural» y es uno de los más conocidos en tu camino al sur de la ciudad de Lima. Es un excelente lugar donde encontrar pancitos horneados con queso, especiales (como la fugazza simple), a la carta y demás variedades. Ideal para compartir con la familia y amigos, recargar energías con un «boost» de sabor brutal y evitar llegar con la panza vacía a tu destino. [Una anotación aquí: Cada uno tiene gustos distintos. A mi opinión personal los considero bastante ricos, y no, no tengo relación alguna con la empresa.]
+
+## La oportunidad para mejorar la experiencia de compra
+<div style="display:flex;gap:1.5rem;align-items:flex-start;margin:2rem 0;">
+  <img src="/imagenes/del-trafico-al-prototipo/art1-cola.png" alt="cola de espera" style="width:280px;min-width:280px;flex-shrink:0;border-radius:4px;" />
+  <p>La última semana santa estuve camino al sur y por supuesto en el plan estaba disfrutar de esta exquisita merienda. En el jueves santo estuvo terriblemente denso el tráfico, desde Atocongo, el peaje, y todo el trayecto (felizmente no encontré accidentes, lo cual hubiera hecho peor la situación). Lo que me mantenía a flote era saber que los pancitos estaban por llegar. Cuando llegamos, el panorama fue igual o peor a lo que el tráfico vehicular ya profetizaba. Altísima demanda, congestionamiento de carros y cola de fácil unas 50 personas para hacer el pedido. No digo que sea una cola imposible, pero para aquellos amigos que desean agilidad en la atención, éste no es un «AJA moment».</p>
+</div>
+
+## La Solución
+Me fui con esa idea todo el trayecto y como vengo aplicando varios casos de uso con IA, específicamente con el **«Vibe Coding»**, me pregunté qué tan complejo sería preparar un prototipo de aplicación para pedidos que ayude a aligerar el proceso de compra en este tan exitoso restaurante. Pues bien, me puse manos a la obra. Si bien en el mercado hoy por hoy existen muchas alternativas para hacerlo como Cursor, Windsurf, Claude, Lovable, Databutton, Tempo AI y +, la idea era hacerlo ágil y efectivo, así que me fui por bolt.new.
+
+Bolt.new es una plataforma vibe coding que permite poder generar productos de forma simple mediante el prompting. Excelente opción si vas a iniciar una aplicación desde cero y no deseas necesariamente entrarle a profundidad al código (aunque si tienes habilidades técnicas, serán un plus para afrontar cualquier troubleshooting!).
+
+Antes de iniciar es recomendable aterrizar la estructura del problema que quieres resolver:
+
+- **Desafío**: El cliente debe esperar entre 20-30min en la cola para ingresar su pedido (sin contar el tiempo que toma encontrar estacionamiento).
+- **Audiencia**: cliente final (B2C).
+- **Solución**: Un tomador de pedidos que le permita realizar la compra online con selección horaria para el recojo.
+
+## Funcionalidades Principales
+- Pantalla de inicio: donde pueda listarse los productos con imagen, nombre del producto y precio. Agregar botón para agregar al carrito del pedido.
+- Menú de Productos: Poder visualizar el nombre y el precio del producto.
+  - Opción para agregar al carrito de compras.
+  - Contador dinámico de cantidad items del carrito de compras.
+- Pantalla de pedido actual: Se debe listar el resumen de tu pedido: la imagen del producto, el nombre del producto, su precio y la cantidad. Debes poder editar la cantidad o eliminar un producto. Además, al final del listado se debe mostrar el área del subtotal del producto. Esta área debe estar fija a pesar de hacer scroll vertical. Además, se debe elegir el horario de recojo del pedido. El horario de recojo debe ser entre 6am a 9pm. Finalmente debe haber un botón de «ir a pagar»
+- En la pantalla de «checkout», debe aparecer un resumen del pedido. Además, se debe permitir el ingreso de pago tarjeta de crédito. Agregar un botón de «Pagar». Luego de pagar debe aparecer un mensaje de «Felicitaciones!!”.
+
+## Requerimientos de Diseño
+- Tener un logo (ficticio) de «Tambo Real».
+- Tener un menú principal donde pueda ver «página de inicio», «Menú», «Mi Perfil».
+- Tener ícono de carrito de pedido que lleve a tu «pedido actual.
+
+## Demo y Resultados
+
+<div style="display:flex;gap:1.5rem;align-items:flex-start;margin:2rem 0;">
+  <div style="width:260px;min-width:260px;flex-shrink:0;background:#1a1a2e;border-radius:36px;padding:12px;box-shadow:0 0 0 2px #333, 0 20px 40px rgba(0,0,0,0.3);position:relative;">
+    <div style="width:60px;height:6px;background:#333;border-radius:4px;margin:0 auto 10px;"></div>
+    <div style="width:10px;height:10px;background:#222;border-radius:50%;margin:0 auto 8px;"></div>
+    <video style="width:100%;border-radius:24px;display:block;" controls>
+      <source src="/imagenes/del-trafico-al-prototipo/Demo-IA-TomaPedidos.mp4" type="video/mp4" />
+    </video>
+    <div style="width:40px;height:40px;background:#333;border-radius:50%;margin:10px auto 0;"></div>
+  </div>
+  <div>
+    <ol>
+      <li>Home page</li>
+      <li>Ingreso de pedido<ul><li>Desde Home page</li><li>Desde Menú de productos</li></ul></li>
+      <li>Checkout</li>
+      <li>Mi Perfil</li>
+    </ol>
+  </div>
+</div>
+
+## Aprendizajes
+- Mientras más clara tengas la idea y funcionalidad que deseas construir, mejor será el output (resultado).
+- Este tipo de herramientas contabiliza al uso por token, que es lo que se traduce con el prompting input. Por lo tanto, hay que ser concretos.
+- No es un must pero ayuda el tener una base de habilidades técnicas para el troubleshooting.
+- Un buen tip es que si el output de tu prompt no es el deseado, puedes hacer rollback de esa actividad sin consumir tokens. Eso sí, copia tu prompt para que no lo pierdas porque el rollback también lo borra.
+- Inicialmente generé el prototipo como aplicación nativa pero tuve complicaciones en la compatibilidad del proyecto con el entorno Expo Go, así que decidí hacerlo web responsive.
+- Se recomienda que las imágenes se obtengan de un host público tipo Google Cloud Storage, AWS S3, un CDN, etc. Como esta es una demo mantuve las imagenes por default por simplicidad.
+
+Finalmente, ya seas profesional dependiente o independiente, la IA puede ser un aliado estratégico en tus objetivos personales y profesionales. Te invito a que la explores y te diviertas en el camino.
+
+¿Te gustaría crear tu propia app funcional en cuestión de horas, sin necesidad de programar?
+
+Te invito a probar **Bolt.new** — una herramienta de **vibe coding** que permite transformar ideas en productos digitales con solo utilizar prompts.
+
+Ideal para emprendedores, product managers y entusiastas de la IA que quieren construir sin barreras técnicas.
+
+Pruébala [aquí](https://bolt.new/?rid=wggss8)

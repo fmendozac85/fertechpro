@@ -1,0 +1,325 @@
+---
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { getCollection } from "astro:content";
+
+const articulos = await getCollection("articulos");
+const ordenados = articulos.sort((a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf());
+const destacado = ordenados.find(a => a.data.destacado) || ordenados[0];
+const recientes = ordenados.filter(a => a.slug !== destacado.slug).slice(0, 3);
+
+const pilarLabel = { pm: "Product Management", fintech: "Fintech Latam", ia: "IA aplicada a producto" };
+
+function fechaCorta(fecha) {
+  return new Date(fecha).toLocaleDateString("es-PE", { month: "long", year: "numeric" });
+}
+---
+<Base titulo="FerTechPro — Product Management, Fintech e IA para Latam">
+  <Nav />
+
+  <!-- HERO -->
+  <section class="hero section">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <div class="hero-eyebrow">Fernando Mendoza · Senior PM</div>
+          <h1 class="hero-title">Donde el producto<br><em>se encuentra</em><br>con el futuro</h1>
+          <p class="hero-desc">Análisis, opiniones y casos prácticos sobre PM, Fintech e IA en Latinoamérica. Sin hype, con criterio real.</p>
+          <div class="hero-author">
+            <div class="author-avatar">
+              <div class="avatar-placeholder"></div>
+            </div>
+            <div>
+              <div class="author-name">Fernando Mendoza</div>
+              <div class="author-role">17 años en producto digital · Fintech · Seguros · Retail</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-cards">
+          <div class="card">
+            <div class="card-label">Los tres pilares</div>
+            <ul class="pillar-list">
+              <li class="pillar-item"><span class="pillar-dot dot-pm"></span><span><strong>Product Management</strong> — Frameworks, decisiones difíciles y equipos de producto reales.</span></li>
+              <li class="pillar-item"><span class="pillar-dot dot-fintech"></span><span><strong>Fintech Latam</strong> — El ecosistema financiero de la región visto desde adentro del producto.</span></li>
+              <li class="pillar-item"><span class="pillar-dot dot-ia"></span><span><strong>IA aplicada a producto</strong> — Cómo la IA está cambiando el rol del PM.</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-label">Newsletter semanal</div>
+            <p style="font-size:0.82rem;color:var(--gray);line-height:1.6;margin-bottom:.25rem">Un artículo cada lunes. Sin spam.</p>
+            <div class="nl-input">
+              <input type="email" placeholder="tu@email.com">
+              <button>Suscribir</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED POST -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="section-label">Artículos</div>
+          <h2 style="font-family:'Fraunces',serif;font-size:1.3rem;font-weight:600;letter-spacing:-.02em;">Lo más reciente</h2>
+        </div>
+        <a href="/articulos" class="link-underline">Ver todos →</a>
+      </div>
+      <div class="featured-grid">
+        <a href={} class="post-card post-card-dark post-card-hero">
+          <span class={}>{pilarLabel[destacado.data.pilar]}</span>
+          <div class="post-title">{destacado.data.titulo}</div>
+          <div class="post-excerpt">{destacado.data.extracto}</div>
+          <div class="post-meta">
+            <span>{destacado.data.lectura} min lectura</span>
+            <span>·</span>
+            <span>{fechaCorta(destacado.data.fecha)}</span>
+          </div>
+        </a>
+        <div class="featured-sidebar">
+          {recientes.map(a => (
+            <a href={} class="post-card">
+              <span class={}>{pilarLabel[a.data.pilar]}</span>
+              <div class="post-title">{a.data.titulo}</div>
+              <div class="post-excerpt">{a.data.extracto}</div>
+              <div class="post-meta">
+                <span>{a.data.lectura} min</span>
+                <span>·</span>
+                <span>{fechaCorta(a.data.fecha)}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÚLTIMOS ARTÍCULOS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Más artículos</div>
+        <a href="/articulos" class="link-underline">Ver archivo →</a>
+      </div>
+      <div class="posts-list">
+        {ordenados.slice(0, 4).map(a => (
+          <a href={} class="post-card">
+            <span class={}>{pilarLabel[a.data.pilar]}</span>
+            <div class="post-title">{a.data.titulo}</div>
+            <div class="post-meta">
+              <span>{a.data.lectura} min</span>
+              <span>·</span>
+              <span>{fechaCorta(a.data.fecha)}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section about-section">
+    <div class="container">
+      <div class="about-inner">
+        <div class="about-photo">
+          <div class="photo-placeholder"></div>
+        </div>
+        <div class="about-content">
+          <h2 class="about-title">PM con criterio,<br>no con certificaciones</h2>
+          <p class="about-text">17 años liderando productos digitales en seguros, retail y telecomunicaciones en Latam. Escribo lo que aprendo en el camino — sin filtros corporativos.</p>
+          <p class="about-text">FerTechPro es donde junto todo: las lecciones, las opiniones incómodas, los experimentos.</p>
+          <a href="/sobre-mi" class="link-underline">Conocer más sobre mí →</a>
+          <div class="stats-grid">
+            <div class="stat-box"><div class="stat-num">17</div><div class="stat-desc">años en producto digital</div></div>
+            <div class="stat-box"><div class="stat-num">3</div><div class="stat-desc">industrias: seguros, retail, telco</div></div>
+            <div class="stat-box"><div class="stat-num">{ordenados.length}+</div><div class="stat-desc">artículos publicados</div></div>
+            <div class="stat-box"><div class="stat-num">1</div><div class="stat-desc">producto construido: Syncly</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LABS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="section-label">Laboratorio</div>
+          <h2 style="font-family:'Fraunces',serif;font-size:1.3rem;font-weight:600;letter-spacing:-.02em;">Labs</h2>
+        </div>
+        <a href="/labs" class="link-underline">Ver todos →</a>
+      </div>
+      <div class="labs-list">
+        <div class="lab-card lab-card-dark">
+          <div class="lab-status status-study"><span class="status-dot"></span>Caso de aprendizaje</div>
+          <div class="lab-name">Syncly</div>
+          <div class="lab-desc">App para líderes que quieren alinear, conectar y energizar a sus equipos. Construida en el World's Largest Hackathon con IA — Bolt.new, Supabase, Groq y ElevenLabs.</div>
+          <div class="lab-tags">
+            <span class="lab-tag">Bolt.new</span>
+            <span class="lab-tag">React</span>
+            <span class="lab-tag">Supabase</span>
+            <span class="lab-tag">Groq</span>
+            <span class="lab-tag">ElevenLabs</span>
+          </div>
+          <div class="lab-footer">
+            <a href="https://getsyncly.site" target="_blank" class="lab-link">Ver landing →</a>
+            <span class="lab-article-link">Ver artículo</span>
+          </div>
+        </div>
+        <div class="lab-card">
+          <div class="lab-status status-wip"><span class="status-dot"></span>En construcción</div>
+          <div class="lab-name">FerTechPro</div>
+          <div class="lab-desc">Este mismo blog — construido con Astro, deployado en Netlify. De WordPress a performance real.</div>
+          <div class="lab-tags">
+            <span class="lab-tag">Astro</span>
+            <span class="lab-tag">Netlify</span>
+            <span class="lab-tag">Markdown</span>
+          </div>
+          <div class="lab-footer">
+            <a href="https://fertechpro.com" class="lab-link">Ver sitio →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="section">
+    <div class="container">
+      <div class="nl-inner">
+        <div>
+          <h2 class="nl-title">Un artículo cada lunes</h2>
+          <p class="nl-desc">Sin spam. Sin listas de tips genéricos. Solo producto, fintech e IA con criterio real de alguien que lleva 17 años en esto.</p>
+        </div>
+        <div>
+          <form class="nl-form" action="https://app.mailerlite.com/webforms/landing/TU_FORMULARIO" method="post" target="_blank">
+            <input type="email" name="email" placeholder="tu@email.com" required>
+            <button type="submit">Suscribirme →</button>
+          </form>
+          <p class="nl-note" style="margin-top:.75rem">Sin spam. Cancela cuando quieras.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Base>
+
+<style>
+  /* Tags — fix scope Astro */
+  .tag { display:inline-block; font-size:0.68rem; font-weight:500; padding:0.25rem 0.65rem; border-radius:20px; letter-spacing:0.03em; }
+  .tag-pm { background:var(--blue-light); color:#1e4a8a; }
+  .tag-fintech { background:var(--peach); color:var(--peach-dark); }
+  .tag-ia { background:var(--mint); color:var(--mint-dark); }
+  
+  .section { padding:3rem 0; border-bottom:1px solid var(--border); }
+  .section-label { font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--gray); margin-bottom:0.5rem; }
+  .section-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; gap:1rem; }
+  .link-underline { font-size:0.82rem; color:var(--blue-dark); border-bottom:1px solid var(--blue-mid); padding-bottom:1px; white-space:nowrap; }
+
+  /* HERO */
+  .hero { padding:3rem 0 2rem; }
+  .hero-eyebrow { font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--blue-dark); margin-bottom:1rem; }
+  .hero-title { font-family:'Fraunces',serif; font-size:clamp(2.2rem,8vw,3.8rem); font-weight:600; line-height:1.08; letter-spacing:-0.03em; margin-bottom:1rem; }
+  .hero-title em { font-style:italic; font-weight:300; color:var(--blue-dark); }
+  .hero-desc { font-size:0.95rem; line-height:1.75; color:var(--gray); margin-bottom:1.5rem; }
+  .hero-author { display:flex; align-items:center; gap:1rem; margin-bottom:2rem; }
+  .author-avatar { width:52px; height:52px; border-radius:50%; overflow:hidden; flex-shrink:0; border:2px solid var(--border); }
+  .avatar-placeholder { width:100%; height:100%; background:var(--blue-light); }
+  .author-name { font-size:0.9rem; font-weight:500; }
+  .author-role { font-size:0.75rem; color:var(--gray); line-height:1.4; }
+  .hero-cards { display:flex; flex-direction:column; gap:1rem; }
+  .card { background:var(--white); border:1px solid var(--border); padding:1.5rem; }
+  .card-label { font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray); margin-bottom:1rem; }
+  .pillar-list { list-style:none; display:flex; flex-direction:column; gap:0.65rem; }
+  .pillar-item { display:flex; align-items:flex-start; gap:0.65rem; font-size:0.85rem; }
+  .pillar-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; margin-top:0.35rem; }
+  .dot-pm { background:var(--blue-dark); } .dot-fintech { background:var(--peach-dark); } .dot-ia { background:var(--mint-dark); }
+  .nl-input { display:flex; margin-top:0.75rem; }
+  .nl-input input { flex:1; padding:0.7rem 1rem; border:1px solid var(--border); border-right:none; font-family:'DM Sans',sans-serif; font-size:0.82rem; background:var(--bg); outline:none; min-width:0; }
+  .nl-input button { padding:0.7rem 0.9rem; background:var(--blue-dark); color:var(--white); border:none; font-family:'DM Sans',sans-serif; font-size:0.78rem; cursor:pointer; white-space:nowrap; }
+
+  /* POST CARDS */
+  .post-card { background:var(--white); border:1px solid var(--border); padding:1.5rem; display:flex; flex-direction:column; gap:0.75rem; transition:border-color 0.2s,transform 0.2s; }
+  .post-card:hover { border-color:var(--blue-mid); transform:translateY(-2px); }
+  .post-card-dark { background:var(--black); border-color:var(--black); color:var(--white); }
+  .post-title { font-family:'Fraunces',serif; font-size:1.1rem; font-weight:600; line-height:1.25; letter-spacing:-0.01em; }
+  .post-card-dark .post-title { color:var(--white); }
+  .post-excerpt { font-size:0.85rem; line-height:1.7; color:var(--gray); flex-grow:1; }
+  .post-card-dark .post-excerpt { color:rgba(255,255,255,0.65); }
+  .post-meta { font-size:0.72rem; color:var(--gray); padding-top:0.75rem; border-top:1px solid var(--border); display:flex; gap:0.5rem; flex-wrap:wrap; }
+  .post-card-dark .post-meta { border-top-color:rgba(255,255,255,0.1); color:rgba(255,255,255,0.5); }
+  .posts-list { display:flex; flex-direction:column; gap:1rem; }
+  .featured-grid { display:flex; flex-direction:column; gap:1rem; }
+  .featured-sidebar { display:flex; flex-direction:column; gap:1rem; }
+
+  /* ABOUT */
+  .about-section { background:var(--cream); }
+  .about-photo { width:100px; height:100px; border-radius:50%; overflow:hidden; border:3px solid var(--white); margin-bottom:1.5rem; }
+  .photo-placeholder { width:100%; height:100%; background:var(--blue-light); }
+  .about-title { font-family:'Fraunces',serif; font-size:clamp(1.5rem,5vw,2rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; margin-bottom:1rem; }
+  .about-text { font-size:0.9rem; line-height:1.8; color:var(--gray); margin-bottom:1rem; }
+  .stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-top:1.5rem; }
+  .stat-box { background:var(--white); border:1px solid var(--border); padding:1rem; }
+  .stat-num { font-family:'Fraunces',serif; font-size:1.8rem; font-weight:600; color:var(--blue-dark); line-height:1; margin-bottom:0.3rem; }
+  .stat-desc { font-size:0.72rem; color:var(--gray); line-height:1.4; }
+
+  /* LABS */
+  .labs-list { display:flex; flex-direction:column; gap:1rem; }
+  .lab-card { background:var(--white); border:1px solid var(--border); padding:1.5rem; display:flex; flex-direction:column; gap:0.75rem; transition:border-color 0.2s,transform 0.2s; }
+  .lab-card:hover { border-color:var(--blue-mid); transform:translateY(-2px); }
+  .lab-card-dark { background:var(--black); border-color:var(--black); color:var(--white); }
+  .lab-status { display:inline-flex; align-items:center; gap:0.4rem; font-size:0.68rem; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; }
+  .status-dot { width:6px; height:6px; border-radius:50%; }
+  .status-study { color:#93c5fd; } .status-study .status-dot { background:#93c5fd; }
+  .status-wip { color:var(--peach-dark); } .status-wip .status-dot { background:var(--peach-dark); }
+  .lab-name { font-family:'Fraunces',serif; font-size:1.4rem; font-weight:600; line-height:1.2; }
+  .lab-card-dark .lab-name { color:var(--white); }
+  .lab-desc { font-size:0.85rem; line-height:1.7; color:var(--gray); flex-grow:1; }
+  .lab-card-dark .lab-desc { color:rgba(255,255,255,0.65); }
+  .lab-tags { display:flex; gap:0.4rem; flex-wrap:wrap; }
+  .lab-tag { font-size:0.68rem; padding:0.2rem 0.6rem; border:1px solid var(--border); color:var(--gray); border-radius:20px; }
+  .lab-card-dark .lab-tag { border-color:rgba(255,255,255,0.15); color:rgba(255,255,255,0.5); }
+  .lab-footer { display:flex; justify-content:space-between; align-items:center; padding-top:0.75rem; border-top:1px solid var(--border); }
+  .lab-card-dark .lab-footer { border-top-color:rgba(255,255,255,0.1); }
+  .lab-link { font-size:0.78rem; color:var(--blue-dark); border-bottom:1px solid var(--blue-mid); padding-bottom:1px; }
+  .lab-card-dark .lab-link { color:var(--blue-mid); }
+
+  /* NEWSLETTER */
+  .nl-title { font-family:'Fraunces',serif; font-size:clamp(1.5rem,5vw,2rem); font-weight:600; line-height:1.15; margin-bottom:0.75rem; }
+  .nl-desc { font-size:0.9rem; line-height:1.75; color:var(--gray); margin-bottom:1.5rem; }
+  .nl-form { display:flex; flex-direction:column; gap:0.75rem; }
+  .nl-form input { padding:0.9rem 1rem; border:1px solid var(--border); background:var(--bg); font-family:'DM Sans',sans-serif; font-size:0.9rem; outline:none; }
+  .nl-form input:focus { border-color:var(--blue-dark); }
+  .nl-form button { padding:0.9rem; background:var(--blue-dark); color:var(--white); border:none; font-family:'DM Sans',sans-serif; font-size:0.88rem; font-weight:500; cursor:pointer; }
+  .nl-note { font-size:0.72rem; color:var(--gray); }
+
+  @media (min-width:640px) {
+    .posts-list { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .stats-grid { grid-template-columns:repeat(4,1fr); }
+    .hero-cards { flex-direction:row; }
+    .hero-cards .card { flex:1; }
+    .labs-list { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .featured-grid { flex-direction:row; }
+    .featured-sidebar { flex:1; }
+  }
+  @media (min-width:1024px) {
+    .hero-inner { display:grid; grid-template-columns:1fr 380px; gap:5rem; align-items:start; }
+    .hero-cards { flex-direction:column; }
+    .hero-cards .card { flex:none; }
+    .featured-grid { display:grid; grid-template-columns:3fr 2fr; gap:1.5rem; }
+    .featured-sidebar { display:flex; flex-direction:column; gap:1.5rem; }
+    .post-card-hero { padding:2.5rem; }
+    .post-card-hero .post-title { font-size:2rem; }
+    .posts-list { grid-template-columns:repeat(3,1fr); }
+    .about-inner { display:grid; grid-template-columns:200px 1fr; gap:3rem; align-items:start; }
+    .about-photo { width:200px; height:200px; border-radius:8px; margin-bottom:0; }
+    .labs-list { grid-template-columns:2fr 1fr; }
+    .nl-inner { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+    .nl-form { flex-direction:column; }
+  }
+</style>
