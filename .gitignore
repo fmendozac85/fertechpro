@@ -22,3 +22,8 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# videos
+public/imagenes/**/*.mp4
+public/imagenes/**/*.mov
+public/imagenes/**/*.avi
