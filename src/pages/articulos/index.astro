@@ -4,7 +4,7 @@ import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
 import { getCollection } from "astro:content";
 
-const todos = await getCollection("articulos");
+const todos = await getCollection("articulos", ({ data }) => !data.draft);
 const ordenados = todos.sort(
   (a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf(),
 );

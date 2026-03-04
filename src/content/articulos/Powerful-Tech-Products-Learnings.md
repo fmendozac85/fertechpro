@@ -4,7 +4,7 @@ fecha: 2025-05-06
 pilar: pm
 extracto: "La pandemia nos dejó algo más que incertidumbre: lecciones clave para crear productos más humanos y resilientes"
 lectura: 4
-destacado: false
+destacado: true
 imagen: /imagenes/Powerful-Tech-Products-Learnings/art1-featureImage.png
 ---
 

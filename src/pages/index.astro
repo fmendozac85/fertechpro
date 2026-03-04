@@ -4,14 +4,23 @@ import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import { getCollection } from "astro:content";
 
-const articulos = await getCollection("articulos");
+// ✅ DESPUÉS
+const articulos = await getCollection("articulos", ({ data }) => !data.draft);
 const ordenados = articulos.sort(
   (a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf(),
 );
-const destacado = ordenados.find((a) => a.data.destacado) || ordenados[0];
-const recientes = ordenados
-  .filter((a) => a.slug !== destacado.slug)
-  .slice(0, 2);
+// DESPUÉS
+const destacados = [
+  ...ordenados.filter((a) => a.data.destacado),
+  ...ordenados.filter((a) => !a.data.destacado),
+].slice(0, 3);
+
+const destacado = destacados[0];
+const recientes = destacados.slice(1, 3);
+
+// Excluir los que ya aparecen en el hero
+const yaVistos = new Set(destacados.map((a) => a.slug));
+const ultimos = ordenados.filter((a) => !yaVistos.has(a.slug)).slice(0, 3);
 
 const pilarLabel = {
   pm: "Product Management",
@@ -159,7 +168,7 @@ function fechaCorta(fecha) {
       </div>
       <div class="posts-list">
         {
-          ordenados.slice(0, 3).map((a) => (
+          ultimos.map((a) => (
             <a href={"/articulos/" + a.slug} class="post-card">
               <span class={"tag tag-" + a.data.pilar}>
                 {pilarLabel[a.data.pilar]}

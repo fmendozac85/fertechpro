@@ -4,13 +4,14 @@ import { defineCollection, z } from 'astro:content';
 const articulosCollection = defineCollection({
   type: 'content',
   schema: z.object({
-    titulo:    z.string(),
-    fecha:     z.date(),
-    pilar:     z.enum(['pm', 'fintech', 'ia']),
-    extracto:  z.string(),
-    imagen:    z.string().optional(),
-    lectura:   z.number(),
+    titulo: z.string(),
+    fecha: z.date(),
+    pilar: z.enum(['pm', 'fintech', 'ia']),
+    extracto: z.string(),
+    imagen: z.string().optional(),
+    lectura: z.number(),
     destacado: z.boolean().optional().default(false),
+    draft: z.boolean().optional().default(false),
   }),
 });
 

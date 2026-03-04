@@ -5,6 +5,7 @@ pilar: fintech
 extracto: "El primer minuto define si un usuario se queda o se va para siempre."
 lectura: 6
 destacado: false
+draft: true
 ---
 
 Contenido del articulo aqui.

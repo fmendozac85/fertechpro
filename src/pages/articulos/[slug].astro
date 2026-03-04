@@ -5,7 +5,7 @@ import Footer from "../../components/Footer.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-  const articulos = await getCollection("articulos");
+  const articulos = await getCollection("articulos", ({ data }) => !data.draft);
   return articulos.map((a) => ({
     params: { slug: a.slug },
     props: { articulo: a },
@@ -30,7 +30,7 @@ const urlArticulo = "https://fertechpro.com/articulos/" + articulo.slug;
 const msgWA = encodeURIComponent(titulo + " — FerTechPro\n" + urlArticulo);
 const msgLI = encodeURIComponent(urlArticulo);
 
-const todos = await getCollection("articulos");
+const todos = await getCollection("articulos", ({ data }) => !data.draft);
 const relacionados = todos
   .filter((a) => a.slug !== articulo.slug && a.data.pilar === pilar)
   .sort((a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf())
