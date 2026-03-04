@@ -271,14 +271,24 @@ function fechaCorta(fecha) {
               class={`lab-card ${lab.data.featured ? "lab-card-dark" : ""}`}
             >
               <div
-                class={`lab-status ${lab.data.status === "archived" ? "status-study" : lab.data.status === "wip" ? "status-wip" : "status-live"}`}
+                class={`lab-status ${
+                  lab.data.status === "archived"
+                    ? "status-study"
+                    : lab.data.status === "wip"
+                      ? "status-wip"
+                      : lab.data.status === "idea"
+                        ? "status-idea"
+                        : "status-live"
+                }`}
               >
                 <span class="status-dot" />
                 {lab.data.status === "archived"
                   ? "Archivado"
                   : lab.data.status === "wip"
                     ? "En construcción"
-                    : "Live"}
+                    : lab.data.status === "idea"
+                      ? "Próximamente"
+                      : "Live"}
               </div>
               <div class="lab-name">{lab.data.title}</div>
               <div class="lab-desc">{lab.data.description}</div>
@@ -788,6 +798,13 @@ function fechaCorta(fecha) {
   .nl-note {
     font-size: 0.72rem;
     color: var(--gray);
+  }
+
+  .status-idea {
+    color: var(--blue-dark);
+  }
+  .status-idea .status-dot {
+    background: var(--blue-dark);
   }
 
   @media (min-width: 640px) {

@@ -2,7 +2,7 @@
 title: "App para distribución de pagos"
 description: "Herramienta para distribucion de pagos grupales parecidas a las que hay en el mercado pero propia. Osea a costo cero."
 category: fintech
-status: wip
+status: idea
 startDate: 2026-03-01
 techStack:
   - Claude
