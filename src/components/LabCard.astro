@@ -1,0 +1,252 @@
+---
+// src/components/LabCard.astro
+// Uso: <LabCard lab={entry} featured={true} />
+
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  lab: CollectionEntry<'labs'>;
+  featured?: boolean;
+}
+
+const { lab, featured = false } = Astro.props;
+const { title, description, category, status, techStack, demoUrl, githubUrl, startDate } = lab.data;
+
+const statusConfig = {
+  live:  { label: 'Live',        color: 'var(--mint-dark)',   bg: 'var(--mint)',  dot: '#3d9e50' },
+  wip:   { label: 'En progreso', color: 'var(--peach-dark)',  bg: 'var(--peach)', dot: '#c4622a' },
+  idea:  { label: 'Próximamente',color: 'var(--blue-dark)',   bg: 'var(--blue-light)', dot: '#4a90c4' },
+};
+
+const categoryLabel = { ia: 'IA', fintech: 'Fintech', pm: 'Product' };
+const tagClass = { ia: 'tag-ia', fintech: 'tag-fintech', pm: 'tag-pm' };
+
+const s = statusConfig[status];
+const dateStr = startDate.toLocaleDateString('es-MX', { month: 'short', year: 'numeric' });
+---
+
+{featured ? (
+  <!-- ── CARD DESTACADA (dark) ────────────────────────────────── -->
+  <a href={`/labs/${lab.slug}`} class="lab-featured">
+    <div class="lab-featured-header">
+      <div class="lab-featured-deco"></div>
+
+      <div class="lab-status-pill live">
+        <span class="live-dot"></span>
+        {status === 'live' ? 'Live · Actualizado recientemente' : s.label}
+      </div>
+
+      <h2 class="lab-featured-name">{title}</h2>
+      <p class="lab-featured-desc">{description}</p>
+    </div>
+
+    <div class="lab-featured-body">
+      <div class="tech-pills">
+        {techStack.slice(0, 5).map(t => <span class="tech-pill">{t}</span>)}
+        {techStack.length > 5 && <span class="tech-pill">+{techStack.length - 5}</span>}
+      </div>
+      <div class="lab-featured-footer">
+        <span class="lab-cta">Ver proyecto →</span>
+        {lab.data.relatedArticle && (
+          <span class="lab-article-ref">📝 Ver artículo relacionado</span>
+        )}
+      </div>
+    </div>
+  </a>
+
+) : (
+  <!-- ── CARD NORMAL ──────────────────────────────────────────── -->
+  <a href={`/labs/${lab.slug}`} class="lab-card">
+    <div class="lab-card-top">
+      <span class="lab-status" style={`color:${s.color}`}>
+        <span class="status-dot" style={`background:${s.dot}`}></span>
+        {s.label}
+      </span>
+      <span class={`tag ${tagClass[category]}`}>{categoryLabel[category]}</span>
+    </div>
+
+    <div class="lab-card-body">
+      <div class="lab-name">{title}</div>
+      <p class="lab-desc">{description}</p>
+    </div>
+
+    <div class="lab-tags">
+      {techStack.slice(0, 4).map(t => <span class="lab-tag">{t}</span>)}
+    </div>
+
+    <div class="lab-footer">
+      <span class="lab-link" style={status === 'wip' ? `color:${s.color};border-color:${s.bg}` : ''}>
+        {status === 'live' ? 'Ver proyecto →' : status === 'wip' ? 'En construcción →' : 'Próximamente'}
+      </span>
+      <span class="lab-meta">{dateStr}</span>
+    </div>
+  </a>
+)}
+
+<style>
+  /* ── FEATURED ─────────────────────────────────────── */
+  .lab-featured {
+    background: var(--black);
+    border: 1px solid var(--black);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform .2s;
+    text-decoration: none;
+  }
+  .lab-featured:hover { transform: translateY(-3px); }
+
+  .lab-featured-header {
+    padding: 2rem 1.75rem 1.5rem;
+    background: linear-gradient(135deg, #1a1a2e 60%, #2d3561);
+    position: relative;
+    overflow: hidden;
+  }
+  .lab-featured-deco {
+    position: absolute;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--blue-mid), transparent 70%);
+    opacity: .15;
+    top: -60px; right: -40px;
+  }
+
+  .lab-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    font-size: .68rem;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .lab-status-pill.live { color: var(--mint); }
+  .live-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--mint);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  .lab-featured-name {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -.02em;
+    color: var(--white);
+    margin-bottom: .75rem;
+  }
+  .lab-featured-desc {
+    font-size: .9rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,.6);
+  }
+
+  .lab-featured-body {
+    padding: 1.5rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .tech-pills { display: flex; flex-wrap: wrap; gap: .4rem; }
+  .tech-pill {
+    font-size: .65rem;
+    font-weight: 500;
+    padding: .2rem .65rem;
+    border: 1px solid rgba(255,255,255,.15);
+    color: rgba(255,255,255,.5);
+    border-radius: 20px;
+  }
+
+  .lab-featured-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,.1);
+  }
+  .lab-cta {
+    font-size: .82rem;
+    font-weight: 500;
+    color: var(--white);
+    border-bottom: 1px solid rgba(255,255,255,.3);
+    padding-bottom: 2px;
+  }
+  .lab-article-ref {
+    font-size: .72rem;
+    color: rgba(255,255,255,.35);
+  }
+
+  /* ── CARD NORMAL ──────────────────────────────────── */
+  .lab-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    transition: border-color .2s, transform .2s;
+    text-decoration: none;
+    color: var(--black);
+  }
+  .lab-card:hover { border-color: var(--blue-mid); transform: translateY(-2px); }
+
+  .lab-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .lab-status {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    font-size: .65rem;
+    font-weight: 500;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+  }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+  .lab-name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -.01em;
+    margin-bottom: .2rem;
+  }
+  .lab-desc {
+    font-size: .85rem;
+    line-height: 1.7;
+    color: var(--gray);
+    flex-grow: 1;
+  }
+
+  .lab-tags { display: flex; gap: .4rem; flex-wrap: wrap; }
+  .lab-tag {
+    font-size: .65rem;
+    padding: .2rem .6rem;
+    border: 1px solid var(--border);
+    color: var(--gray);
+    border-radius: 20px;
+  }
+
+  .lab-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: .75rem;
+    border-top: 1px solid var(--border);
+  }
+  .lab-link {
+    font-size: .78rem;
+    color: var(--blue-dark);
+    border-bottom: 1px solid var(--blue-mid);
+    padding-bottom: 1px;
+  }
+  .lab-meta { font-size: .72rem; color: var(--gray); }
+</style>

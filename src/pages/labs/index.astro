@@ -1,0 +1,356 @@
+---
+// src/pages/labs/index.astro
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import LabCard from '../../components/LabCard.astro';
+
+const allLabs = await getCollection('labs', ({ data }) => !data.draft);
+
+// Ordenar: featured primero, luego live, wip, idea; dentro de cada grupo por fecha desc
+const sorted = allLabs.sort((a, b) => {
+  if (a.data.featured && !b.data.featured) return -1;
+  if (!a.data.featured && b.data.featured) return 1;
+  const order = { live: 0, wip: 1, idea: 2 };
+  if (order[a.data.status] !== order[b.data.status])
+    return order[a.data.status] - order[b.data.status];
+  return b.data.startDate.getTime() - a.data.startDate.getTime();
+});
+
+const featured = sorted.find(l => l.data.featured);
+const rest     = sorted.filter(l => !l.data.featured);
+
+const stats = {
+  live: allLabs.filter(l => l.data.status === 'live').length,
+  wip:  allLabs.filter(l => l.data.status === 'wip').length,
+  idea: allLabs.filter(l => l.data.status === 'idea').length,
+};
+---
+
+<Base titulo="Labs — FerTechPro" descripcion="Proyectos reales que construyo para resolver problemas concretos de producto, fintech e IA.">
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb-bar">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Navegación">
+        <a href="/">Inicio</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Labs</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="labs-hero">
+    <div class="container">
+      <div class="labs-hero-inner">
+        <div class="hero-text">
+          <p class="hero-eyebrow">⚗️ Experimentos & Proyectos</p>
+          <h1 class="hero-title">Donde las ideas<br><em>toman forma</em></h1>
+          <p class="hero-desc">
+            Proyectos reales que construyo para resolver problemas concretos de producto, fintech e IA.
+            Algunos funcionan, otros son aprendizajes disfrazados de fracasos.
+          </p>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-pill">
+            <span class="stat-dot dot-live"></span>
+            <div>
+              <div class="stat-count">{stats.live}</div>
+              <div class="stat-label">Live</div>
+            </div>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-dot dot-wip"></span>
+            <div>
+              <div class="stat-count">{stats.wip}</div>
+              <div class="stat-label">En progreso</div>
+            </div>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-dot dot-idea"></span>
+            <div>
+              <div class="stat-count">{stats.idea}</div>
+              <div class="stat-label">En cola</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTER BAR -->
+  <div class="container">
+    <div class="filter-bar">
+      <span class="filter-label">Filtrar:</span>
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="ia">IA</button>
+      <button class="filter-btn" data-filter="fintech">Fintech</button>
+      <button class="filter-btn" data-filter="pm">Product</button>
+      <button class="filter-btn" data-filter="live">🟢 Live</button>
+      <button class="filter-btn" data-filter="wip">🟠 En progreso</button>
+    </div>
+  </div>
+
+  <!-- LABS GRID -->
+  <div class="container">
+    <div class="labs-grid" id="labs-grid">
+
+      {featured && (
+        <div class="lab-featured-wrap" data-category={featured.data.category} data-status={featured.data.status}>
+          <LabCard lab={featured} featured={true} />
+        </div>
+      )}
+
+      {rest.map(lab => (
+        <div data-category={lab.data.category} data-status={lab.data.status}>
+          <LabCard lab={lab} />
+        </div>
+      ))}
+
+    </div>
+  </div>
+
+  <!-- NEWSLETTER BAND -->
+  <div class="nl-band">
+    <div class="container">
+      <div class="nl-band-inner">
+        <div class="nl-band-text">
+          <h3>¿Quieres saber cuándo lanzo algo nuevo?</h3>
+          <p>Te aviso cuando un lab nuevo sale a producción. Sin spam, solo cuando hay algo real.</p>
+        </div>
+        <form class="nl-band-form" onsubmit="return false;">
+          <input type="email" placeholder="tu@email.com" aria-label="Email" />
+          <button type="submit">Avisar →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <Footer />
+</Base>
+
+<!-- ─── FILTER SCRIPT ────────────────────────────────────────────────────── -->
+<script>
+  const btns  = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const cards = document.querySelectorAll<HTMLElement>('#labs-grid > div');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const f = btn.dataset.filter!;
+      cards.forEach(card => {
+        const cat    = card.dataset.category ?? '';
+        const status = card.dataset.status ?? '';
+        const show   = f === 'all' || cat === f || status === f;
+        card.style.display = show ? '' : 'none';
+      });
+    });
+  });
+</script>
+
+<style>
+  /* ── BREADCRUMB ─────────────────────────────────── */
+  .breadcrumb-bar {
+    padding: .85rem 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--white);
+  }
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: .75rem;
+    color: var(--gray);
+    list-style: none;
+  }
+  .breadcrumb a { color: var(--blue-dark); text-decoration: none; }
+  .breadcrumb-sep { color: var(--border); }
+
+  /* ── HERO ───────────────────────────────────────── */
+  .labs-hero {
+    padding: 2.5rem 0 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .labs-hero-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .hero-eyebrow {
+    font-size: .72rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--blue-dark);
+    margin-bottom: .75rem;
+  }
+  .hero-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -.03em;
+    margin-bottom: 1rem;
+  }
+  .hero-title em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--blue-dark);
+  }
+  .hero-desc {
+    font-size: .95rem;
+    line-height: 1.75;
+    color: var(--gray);
+    max-width: 560px;
+  }
+
+  /* ── STATS ──────────────────────────────────────── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .75rem;
+  }
+  .stat-pill {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+  }
+  .stat-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-live  { background: var(--mint-dark); box-shadow: 0 0 0 3px rgba(61,158,80,.2); }
+  .dot-wip   { background: var(--peach-dark); }
+  .dot-idea  { background: var(--blue-dark); }
+  .stat-count {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  /* ── FILTER ─────────────────────────────────────── */
+  .filter-bar {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .filter-label {
+    font-size: .72rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+  .filter-btn {
+    font-size: .75rem;
+    font-weight: 500;
+    padding: .35rem .85rem;
+    border: 1px solid var(--border);
+    background: var(--white);
+    color: var(--gray);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    border-radius: 20px;
+    transition: all .15s;
+  }
+  .filter-btn:hover,
+  .filter-btn.active {
+    background: var(--black);
+    color: var(--white);
+    border-color: var(--black);
+  }
+
+  /* ── GRID ───────────────────────────────────────── */
+  .labs-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 2rem 0;
+  }
+  .lab-featured-wrap { width: 100%; }
+
+  /* ── NEWSLETTER BAND ────────────────────────────── */
+  .nl-band {
+    background: var(--cream);
+    border-top: 1px solid #e8d88a;
+    border-bottom: 1px solid #e8d88a;
+    padding: 2rem 0;
+  }
+  .nl-band-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .nl-band-text h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    margin-bottom: .4rem;
+  }
+  .nl-band-text p {
+    font-size: .85rem;
+    line-height: 1.7;
+    color: var(--gray);
+  }
+  .nl-band-form { display: flex; }
+  .nl-band-form input {
+    flex: 1;
+    padding: .75rem 1rem;
+    border: 1px solid #e8d88a;
+    border-right: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .85rem;
+    background: var(--white);
+    outline: none;
+    min-width: 0;
+  }
+  .nl-band-form input:focus { border-color: var(--blue-dark); }
+  .nl-band-form button {
+    padding: .75rem 1.25rem;
+    background: var(--black);
+    color: var(--white);
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .82rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  /* ── RESPONSIVE ─────────────────────────────────── */
+  @media (min-width: 640px) {
+    .labs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .lab-featured-wrap { grid-column: span 2; }
+    .nl-band-inner { flex-direction: row; align-items: center; }
+    .nl-band-text { flex: 1; }
+  }
+
+  @media (min-width: 1024px) {
+    .labs-hero-inner { flex-direction: row; align-items: flex-end; gap: 4rem; }
+    .stats-row { min-width: 340px; }
+    .labs-grid { grid-template-columns: 2fr 1fr 1fr; }
+    .lab-featured-wrap { grid-column: span 3; }
+  }
+</style>

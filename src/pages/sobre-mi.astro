@@ -1,0 +1,562 @@
+---
+// src/pages/sobre-mi.astro
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+// Últimos artículos (usa los campos reales del schema)
+const articulos = await getCollection('articulos');
+const ultimos   = articulos
+  .sort((a, b) => b.data.fecha.getTime() - a.data.fecha.getTime())
+  .slice(0, 3);
+
+const tagClass = { ia: 'tag-ia', fintech: 'tag-fintech', pm: 'tag-pm' };
+
+const experiencia = [
+  {
+    role: 'Senior Product Manager',
+    company: 'Konfío — Fintech de crédito empresarial · México',
+    period: '2022 — Presente',
+    desc: 'Lideré el rediseño del flujo de originación de crédito que redujo el tiempo de aprobación de 72h a 4h. Crecí el NPS de 32 a 58 en 18 meses.',
+    tags: ['B2B Lending', 'Credit decisioning', 'Data-driven PM'],
+  },
+  {
+    role: 'Product Manager',
+    company: 'Nuvei — Pagos globales · Remoto',
+    period: '2020 — 2022',
+    desc: 'Responsable del producto de pagos alternativos para LATAM. Lancé 8 métodos de pago en 12 meses: PIX, PSE, billeteras digitales, efectivo.',
+    tags: ['Payments', 'API Products', 'LATAM expansion'],
+  },
+  {
+    role: 'Product Manager Jr. → Mid',
+    company: 'Kueski — BNPL y consumer finance · México',
+    period: '2017 — 2020',
+    desc: 'Comencé en underwriting y terminé liderando el producto de límites de crédito dinámicos. Primera experiencia construyendo con ML en producción.',
+    tags: ['Consumer credit', 'ML in product', 'Growth'],
+  },
+  {
+    role: 'Analista de Crédito → Product Analyst',
+    company: 'BBVA México',
+    period: '2015 — 2017',
+    desc: 'Banca tradicional analizando carteras de crédito PYME. La frustración con procesos manuales me llevó al mundo fintech.',
+    tags: ['Banking', 'Credit analysis', 'SQL'],
+  },
+];
+
+const skills = [
+  {
+    label: 'Product core',
+    items: ['Priorización', 'Discovery', 'Roadmapping', 'OKRs', 'PRDs', 'Stakeholder mgmt'],
+    highlight: [0, 1],
+  },
+  {
+    label: 'Datos & análisis',
+    items: ['SQL', 'Mixpanel', 'Amplitude', 'Looker', 'Python básico', 'A/B testing'],
+    highlight: [0, 1],
+  },
+  {
+    label: 'IA aplicada',
+    items: ['Prompt engineering', 'Claude / GPT-4', 'Cursor', 'LLM workflows', 'AI-assisted PRD'],
+    highlight: [0, 1],
+  },
+  {
+    label: 'Tools & stack',
+    items: ['Linear', 'Notion', 'Figma', 'Astro', 'Miro', 'Retool'],
+    highlight: [3],
+  },
+];
+---
+
+<Base titulo="Sobre mí — FerTechPro" descripcion="PM con 8+ años en fintech latinoamericana. Construyo productos financieros que sirven a personas reales — y experimento con IA para que ese proceso sea más inteligente.">
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb-bar">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Inicio</a>
+        <span>›</span>
+        <span>Sobre mí</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ── HERO ─────────────────────────────────────────────────────── -->
+  <section class="about-hero">
+    <div class="container">
+      <div class="about-hero-inner">
+
+        <!-- Avatar -->
+        <div class="avatar-wrap">
+          <div class="avatar">
+            <!-- Reemplaza este SVG con: <img src="/imagenes/fernando.jpg" alt="Fernando Mendoza"> -->
+            <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg"
+                 style="width:100%;height:100%;background:#e8f4fc;">
+              <ellipse cx="80" cy="58" rx="36" ry="40" fill="#4a90c4" opacity=".9"/>
+              <circle cx="80" cy="50" r="24" fill="#ffd4a8"/>
+              <ellipse cx="80" cy="55" rx="13" ry="6" fill="#e8b88a"/>
+              <rect x="60" y="44" width="14" height="9" rx="4" fill="none" stroke="#1a1a2e" stroke-width="2"/>
+              <rect x="78" y="44" width="14" height="9" rx="4" fill="none" stroke="#1a1a2e" stroke-width="2"/>
+              <line x1="74" y1="48" x2="78" y2="48" stroke="#1a1a2e" stroke-width="2"/>
+              <path d="M40 160 Q40 110 80 105 Q120 110 120 160" fill="#2d3a8c" opacity=".85"/>
+              <path d="M70 105 L80 118 L90 105" fill="white" opacity=".9"/>
+              <rect x="55" y="128" width="50" height="22" rx="3" fill="#1a1a2e" opacity=".6"/>
+              <rect x="57" y="130" width="46" height="17" rx="2" fill="#4a90c4" opacity=".35"/>
+            </svg>
+          </div>
+          <div class="avatar-badge">✓ Open to work</div>
+        </div>
+
+        <!-- Texto -->
+        <div class="about-text">
+          <p class="eyebrow">Senior Product Manager</p>
+          <h1 class="about-name">Fernando<br><em>Mendoza</em></h1>
+          <p class="about-tagline">
+            PM con 8+ años en fintech latinoamericana. Construyo productos financieros que sirven a
+            personas reales — y experimento con IA para que ese proceso sea más inteligente.
+          </p>
+          <div class="about-ctas">
+            <a href="https://linkedin.com/in/tu-perfil" target="_blank" rel="noopener" class="btn-primary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+              Conectar en LinkedIn
+            </a>
+            <a href="/cv-fernando-mendoza.pdf" class="btn-secondary">Descargar CV →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STATS ─────────────────────────────────────────────────────── -->
+  <div class="stats-strip">
+    <div class="container">
+      <div class="stats-grid">
+        {[
+          { num: '8+',  desc: 'Años en Product Management' },
+          { num: '4',   desc: 'Fintechs latinas donde trabajé' },
+          { num: '3M+', desc: 'Usuarios impactados con mis productos' },
+          { num: '12',  desc: 'Labs y proyectos publicados' },
+        ].map(s => (
+          <div class="stat-box">
+            <div class="stat-num">{s.num}</div>
+            <div class="stat-desc">{s.desc}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BIO ───────────────────────────────────────────────────────── -->
+  <section class="bio-section">
+    <div class="container">
+      <div class="bio-inner">
+        <div class="bio-main">
+          <h2>Mi historia</h2>
+          <div class="bio-text">
+            <p>Empecé mi carrera como analista de crédito en un banco tradicional en Ciudad de México.
+              Pasaba los días revisando expedientes y pensando que <strong>había una manera más inteligente
+              de hacer esto</strong>. Esa frustración me llevó al mundo de las fintechs en 2016.</p>
+
+            <p>Desde entonces he trabajado en cuatro startups financieras en diferentes etapas — desde
+              una seed que pivotó tres veces hasta una scale-up que llegó a 1.5M de usuarios. En cada
+              una, aprendí algo que no viene en ningún libro de producto.</p>
+
+            <blockquote>
+              "Lo que más me importa no es la feature — es el problema que resuelve. Y en fintech,
+              ese problema suele tener consecuencias reales en la vida de personas reales."
+            </blockquote>
+
+            <p>En 2023 empecé a explorar seriamente cómo la IA puede cambiar la forma en que los PMs
+              trabajamos. No como hype, sino como tooling concreto. Ese experimento se convirtió en
+              FerTechPro.</p>
+
+            <p>Fuera del trabajo, soy padre de dos, aficionado al trail running y convencido de que el
+              mejor PRD es el que nunca tuviste que escribir porque el problema era tan claro que todos
+              lo entendían.</p>
+          </div>
+        </div>
+
+        <!-- Sidebar: dónde escribo -->
+        <div class="bio-side">
+          <h3>Dónde escribo</h3>
+          <div class="writing-list">
+            {[
+              { title: 'FerTechPro Blog', desc: 'Artículos sobre Product, Fintech e IA aplicada' },
+              { title: 'Newsletter semanal', desc: '1,200+ suscriptores · Todos los martes' },
+              { title: 'LinkedIn',           desc: 'Posts diarios sobre PM + IA en contexto latam' },
+            ].map(w => (
+              <div class="writing-item">
+                <div class="writing-title">{w.title}</div>
+                <div class="writing-desc">{w.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EXPERIENCIA ───────────────────────────────────────────────── -->
+  <section class="exp-section">
+    <div class="container">
+      <h2>Experiencia</h2>
+      <div class="timeline">
+        {experiencia.map(e => (
+          <div class="timeline-item">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-role">{e.role}</div>
+                <div class="timeline-company">{e.company}</div>
+              </div>
+              <div class="timeline-period">{e.period}</div>
+            </div>
+            <p class="timeline-desc">{e.desc}</p>
+            <div class="timeline-tags">
+              {e.tags.map(t => <span class="t-tag">{t}</span>)}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SKILLS ────────────────────────────────────────────────────── -->
+  <section class="skills-section">
+    <div class="container">
+      <h2>Herramientas & skills</h2>
+      <div class="skills-grid">
+        {skills.map(group => (
+          <div class="skill-group">
+            <div class="skill-group-label">{group.label}</div>
+            <div class="skill-pills">
+              {group.items.map((item, i) => (
+                <span class={`skill-pill${group.highlight.includes(i) ? ' highlight' : ''}`}>
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PILARES ───────────────────────────────────────────────────── -->
+  <section class="pillars-section">
+    <div class="container">
+      <h2>Sobre qué escribo y experimento</h2>
+      <div class="pillars-list">
+        {[
+          { dot: 'pm',      title: 'Product Management real',
+            desc: 'Sin frameworks de libros. Casos concretos de decisiones difíciles, priorización bajo incertidumbre y cómo trabajar con engineering cuando el tiempo aprieta.' },
+          { dot: 'fintech', title: 'Fintech latinoamericana',
+            desc: 'Crédito, pagos, cuentas y seguros en mercados donde el 60% de las personas nunca tuvo una cuenta bancaria. Contexto que importa.' },
+          { dot: 'ia',      title: 'IA aplicada a producto',
+            desc: 'Cómo los PMs podemos usar IA como herramienta de trabajo, no como buzzword. Desde prompts útiles hasta automatizaciones que ahorran horas reales.' },
+        ].map(p => (
+          <div class="pillar-card">
+            <div class={`pillar-dot dot-${p.dot}`}></div>
+            <div>
+              <div class="pillar-title">{p.title}</div>
+              <p class="pillar-desc">{p.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA CONTACTO ──────────────────────────────────────────────── -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-inner">
+        <div>
+          <h2>¿Trabajamos juntos<br><em>en algo?</em></h2>
+          <p>Estoy abierto a conversaciones sobre roles de PM senior, advisory en fintechs, o simplemente intercambiar ideas sobre producto e IA.</p>
+        </div>
+        <div class="cta-links">
+          <a href="mailto:hola@fertechpro.com" class="cta-btn primary">Escribirme →</a>
+          <a href="https://linkedin.com/in/tu-perfil" target="_blank" rel="noopener" class="cta-btn ghost">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  <Footer />
+</Base>
+
+<style>
+  /* ── BREADCRUMB ─────────────────────────────────── */
+  .breadcrumb-bar {
+    padding: .85rem 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--white);
+  }
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: .75rem;
+    color: var(--gray);
+  }
+  .breadcrumb a { color: var(--blue-dark); text-decoration: none; }
+
+  /* ── HERO ──────────────────────────────────────── */
+  .about-hero {
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--cream);
+  }
+  .about-hero-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .avatar-wrap { position: relative; width: 110px; }
+  .avatar {
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--white);
+    box-shadow: 0 4px 16px rgba(0,0,0,.08);
+  }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .avatar-badge {
+    position: absolute;
+    bottom: 2px; right: -4px;
+    background: var(--mint);
+    border: 2px solid var(--white);
+    border-radius: 20px;
+    font-size: .6rem;
+    font-weight: 500;
+    padding: .15rem .5rem;
+    color: var(--mint-dark);
+  }
+
+  .eyebrow {
+    font-size: .72rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--blue-dark);
+    margin-bottom: .5rem;
+  }
+  .about-name {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 7vw, 3.2rem);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -.03em;
+    margin-bottom: .75rem;
+  }
+  .about-name em { font-style: italic; font-weight: 300; color: var(--blue-dark); }
+  .about-tagline {
+    font-size: .95rem;
+    line-height: 1.75;
+    color: var(--gray);
+    margin-bottom: 1.25rem;
+    max-width: 560px;
+  }
+  .about-ctas { display: flex; gap: .75rem; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: .4rem;
+    font-size: .85rem; font-weight: 500;
+    padding: .7rem 1.5rem;
+    background: var(--blue-dark); color: var(--white);
+    border: 1px solid var(--blue-dark);
+    text-decoration: none;
+    transition: background .15s;
+  }
+  .btn-primary:hover { background: #3a7db0; }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: .4rem;
+    font-size: .85rem; padding: .7rem 1.5rem;
+    background: transparent; color: var(--black);
+    border: 1px solid var(--border);
+    text-decoration: none;
+  }
+
+  /* ── STATS ─────────────────────────────────────── */
+  .stats-strip { padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
+  .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem; }
+  .stat-box { background: var(--white); border: 1px solid var(--border); padding: 1rem 1.25rem; }
+  .stat-num {
+    font-family: 'Fraunces', serif;
+    font-size: 2rem; font-weight: 600;
+    color: var(--blue-dark); line-height: 1;
+    margin-bottom: .3rem;
+  }
+  .stat-desc { font-size: .72rem; color: var(--gray); line-height: 1.4; }
+
+  /* ── BIO ────────────────────────────────────────── */
+  .bio-section { padding: 2.5rem 0; border-bottom: 1px solid var(--border); }
+  .bio-inner { display: flex; flex-direction: column; gap: 2rem; }
+  .bio-section h2,
+  .bio-main h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem; font-weight: 600;
+    letter-spacing: -.01em;
+    margin-bottom: 1.25rem;
+  }
+  .bio-text { font-size: .92rem; line-height: 1.9; color: #2d2d3a; }
+  .bio-text p { margin-bottom: 1.25rem; }
+  .bio-text p:last-child { margin-bottom: 0; }
+  .bio-text strong { font-weight: 500; color: var(--black); }
+  .bio-text blockquote {
+    border-left: 3px solid var(--blue-dark);
+    padding: .75rem 1.25rem;
+    margin: 1.5rem 0;
+    background: var(--blue-light);
+    font-style: italic;
+    color: #1e3a5f;
+    line-height: 1.7;
+    font-size: .92rem;
+  }
+
+  .bio-side h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem; font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .writing-list { display: flex; flex-direction: column; gap: .75rem; }
+  .writing-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 1rem 1.25rem;
+  }
+  .writing-title { font-size: .82rem; font-weight: 500; margin-bottom: .25rem; }
+  .writing-desc  { font-size: .75rem; color: var(--gray); }
+
+  /* ── EXPERIENCIA ────────────────────────────────── */
+  .exp-section { padding: 2.5rem 0; border-bottom: 1px solid var(--border); }
+  .exp-section h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem; font-weight: 600;
+    letter-spacing: -.01em;
+    margin-bottom: 1.5rem;
+  }
+  .timeline { display: flex; flex-direction: column; }
+  .timeline-item {
+    display: flex; flex-direction: column; gap: .5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .timeline-item:last-child { border-bottom: none; }
+  .timeline-header { display: flex; flex-direction: column; gap: .3rem; }
+  .timeline-role   { font-size: .95rem; font-weight: 500; }
+  .timeline-company{ font-size: .82rem; color: var(--blue-dark); }
+  .timeline-period { font-size: .72rem; color: var(--gray); }
+  .timeline-desc   { font-size: .85rem; line-height: 1.7; color: var(--gray); }
+  .timeline-tags   { display: flex; gap: .4rem; flex-wrap: wrap; }
+  .t-tag {
+    font-size: .65rem; padding: .15rem .55rem;
+    border: 1px solid var(--border);
+    color: var(--gray); border-radius: 20px;
+  }
+
+  /* ── SKILLS ─────────────────────────────────────── */
+  .skills-section { padding: 2.5rem 0; border-bottom: 1px solid var(--border); }
+  .skills-section h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem; font-weight: 600;
+    letter-spacing: -.01em; margin-bottom: 1.5rem;
+  }
+  .skills-grid { display: flex; flex-direction: column; gap: 1.25rem; }
+  .skill-group {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+  }
+  .skill-group-label {
+    font-size: .68rem; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--gray);
+    margin-bottom: .75rem;
+  }
+  .skill-pills { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .skill-pill {
+    font-size: .78rem; padding: .35rem .85rem;
+    background: var(--bg); border: 1px solid var(--border);
+    color: var(--black); border-radius: 2px;
+  }
+  .skill-pill.highlight {
+    background: var(--blue-light);
+    border-color: var(--blue-mid);
+    color: #1e4a8a;
+  }
+
+  /* ── PILARES ────────────────────────────────────── */
+  .pillars-section {
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--cream);
+  }
+  .pillars-section h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem; font-weight: 600;
+    letter-spacing: -.01em; margin-bottom: 1.25rem;
+  }
+  .pillars-list { display: flex; flex-direction: column; gap: .75rem; }
+  .pillar-card {
+    background: var(--white);
+    border: 1px solid #e8d88a;
+    padding: 1.25rem;
+    display: flex; gap: 1rem; align-items: flex-start;
+  }
+  .pillar-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%; flex-shrink: 0; margin-top: .35rem;
+  }
+  .dot-pm      { background: var(--blue-dark); }
+  .dot-fintech { background: var(--peach-dark); }
+  .dot-ia      { background: var(--mint-dark); }
+  .pillar-title { font-size: .9rem; font-weight: 500; margin-bottom: .3rem; }
+  .pillar-desc  { font-size: .82rem; line-height: 1.65; color: var(--gray); }
+
+  /* ── CTA ────────────────────────────────────────── */
+  .cta-section {
+    background: var(--black); color: var(--white);
+    padding: 2.5rem 0;
+  }
+  .cta-inner {
+    display: flex; flex-direction: column; gap: 1.5rem;
+  }
+  .cta-section h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.6rem; font-weight: 600;
+    line-height: 1.2; letter-spacing: -.02em;
+    margin-bottom: .75rem;
+  }
+  .cta-section h2 em { font-style: italic; font-weight: 300; color: var(--blue-mid); }
+  .cta-section p {
+    font-size: .88rem; line-height: 1.75;
+    color: rgba(255,255,255,.55); max-width: 480px;
+  }
+  .cta-links { display: flex; flex-wrap: wrap; gap: .75rem; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: .4rem;
+    font-size: .85rem; font-weight: 500;
+    padding: .75rem 1.5rem; text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .cta-btn.primary { background: var(--blue-dark); color: var(--white); border: 1px solid var(--blue-dark); }
+  .cta-btn.ghost   { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,.2); }
+
+  /* ── RESPONSIVE ─────────────────────────────────── */
+  @media (min-width: 640px) {
+    .stats-grid    { grid-template-columns: repeat(4, 1fr); }
+    .skills-grid   { display: grid; grid-template-columns: 1fr 1fr; }
+    .pillars-list  { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .timeline-header { flex-direction: row; align-items: baseline; gap: 1rem; justify-content: space-between; }
+  }
+  @media (min-width: 1024px) {
+    .about-hero-inner  { flex-direction: row; align-items: flex-start; gap: 4rem; }
+    .avatar-wrap { width: 160px; }
+    .avatar { width: 160px; height: 160px; }
+    .bio-inner { flex-direction: row; gap: 4rem; align-items: start; }
+    .bio-main  { flex: 1; }
+    .bio-side  { width: 300px; flex-shrink: 0; }
+    .cta-inner { flex-direction: row; align-items: center; justify-content: space-between; }
+  }
+</style>
