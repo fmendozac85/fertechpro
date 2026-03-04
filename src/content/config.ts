@@ -22,7 +22,7 @@ const labsCollection = defineCollection({
     title: z.string(),
     description: z.string(),             // subtítulo corto (para cards)
     category: z.enum(['ia', 'fintech', 'pm']),
-    status: z.enum(['live', 'wip', 'idea']),
+    status: z.enum(['live', 'wip', 'idea', 'archived']),
     startDate: z.date(),
     updatedDate: z.date().optional(),
     techStack: z.array(z.string()),       // ["Python", "OpenAI API", ...]

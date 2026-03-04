@@ -16,6 +16,7 @@ const statusConfig = {
   live:  { label: 'Live',        color: 'var(--mint-dark)',   bg: 'var(--mint)',  dot: '#3d9e50' },
   wip:   { label: 'En progreso', color: 'var(--peach-dark)',  bg: 'var(--peach)', dot: '#c4622a' },
   idea:  { label: 'Próximamente',color: 'var(--blue-dark)',   bg: 'var(--blue-light)', dot: '#4a90c4' },
+  archived: { label: 'Archivado', color: '#6b7280', bg: '#f3f4f6', dot: '#9ca3af' },
 };
 
 const categoryLabel = { ia: 'IA', fintech: 'Fintech', pm: 'Product' };
@@ -31,10 +32,13 @@ const dateStr = startDate.toLocaleDateString('es-MX', { month: 'short', year: 'n
     <div class="lab-featured-header">
       <div class="lab-featured-deco"></div>
 
-      <div class="lab-status-pill live">
-        <span class="live-dot"></span>
-        {status === 'live' ? 'Live · Actualizado recientemente' : s.label}
-      </div>
+  <div class={`lab-status-pill ${status}`}>
+  {status === 'live' && <span class="live-dot"></span>}
+  {status === 'archived' 
+    ? '📦 Archivado · Con video demo y aprendizajes'
+    : status === 'live' ? 'Live · Actualizado recientemente' 
+    : s.label}
+</div>
 
       <h2 class="lab-featured-name">{title}</h2>
       <p class="lab-featured-desc">{description}</p>
@@ -46,7 +50,9 @@ const dateStr = startDate.toLocaleDateString('es-MX', { month: 'short', year: 'n
         {techStack.length > 5 && <span class="tech-pill">+{techStack.length - 5}</span>}
       </div>
       <div class="lab-featured-footer">
-        <span class="lab-cta">Ver proyecto →</span>
+        <span class="lab-cta">
+  {status === 'archived' ? 'Ver demo en video →' : 'Ver proyecto →'}
+</span>
         {lab.data.relatedArticle && (
           <span class="lab-article-ref">📝 Ver artículo relacionado</span>
         )}
@@ -76,7 +82,10 @@ const dateStr = startDate.toLocaleDateString('es-MX', { month: 'short', year: 'n
 
     <div class="lab-footer">
       <span class="lab-link" style={status === 'wip' ? `color:${s.color};border-color:${s.bg}` : ''}>
-        {status === 'live' ? 'Ver proyecto →' : status === 'wip' ? 'En construcción →' : 'Próximamente'}
+        {status === 'live' ? 'Ver proyecto →' 
+  : status === 'wip' ? 'En construcción →' 
+  : status === 'archived' ? 'Ver demo →'
+  : 'Próximamente'}
       </span>
       <span class="lab-meta">{dateStr}</span>
     </div>
@@ -249,4 +258,6 @@ const dateStr = startDate.toLocaleDateString('es-MX', { month: 'short', year: 'n
     padding-bottom: 1px;
   }
   .lab-meta { font-size: .72rem; color: var(--gray); }
+  .lab-status-pill.archived { color: #9ca3af; }
 </style>
+

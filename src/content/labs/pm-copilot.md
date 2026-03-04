@@ -26,7 +26,8 @@ metrics:
   - value: "4.6/5"
     label: "Satisfacción promedio de los usuarios"
 relatedArticle: "como-construi-pm-copilot"
-featured: true
+featured: false
+draft: true
 ---
 
 ## El problema que resuelve
