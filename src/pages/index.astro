@@ -22,6 +22,15 @@ const recientes = destacados.slice(1, 3);
 const yaVistos = new Set(destacados.map((a) => a.slug));
 const ultimos = ordenados.filter((a) => !yaVistos.has(a.slug)).slice(0, 3);
 
+const labsAll = await getCollection("labs", ({ data }) => !data.draft);
+const labsHome = labsAll
+  .sort((a, b) => {
+    if (a.data.featured && !b.data.featured) return -1;
+    if (!a.data.featured && b.data.featured) return 1;
+    return b.data.startDate.getTime() - a.data.startDate.getTime();
+  })
+  .slice(0, 2);
+
 const pilarLabel = {
   pm: "Product Management",
   fintech: "Fintech Latam",
@@ -255,49 +264,41 @@ function fechaCorta(fecha) {
         <a href="/labs" class="link-underline">Ver todos →</a>
       </div>
       <div class="labs-list">
-        <div class="lab-card lab-card-dark">
-          <div class="lab-status status-study">
-            <span class="status-dot"></span>Caso de aprendizaje
-          </div>
-          <div class="lab-name">Syncly</div>
-          <div class="lab-desc">
-            App para líderes que quieren alinear, conectar y energizar a sus
-            equipos. Construida en el World's Largest Hackathon con IA.
-          </div>
-          <div class="lab-tags">
-            <span class="lab-tag">Bolt.new</span><span class="lab-tag"
-              >React</span
+        {
+          labsHome.map((lab) => (
+            <a
+              href={`/labs/${lab.slug}`}
+              class={`lab-card ${lab.data.featured ? "lab-card-dark" : ""}`}
             >
-            <span class="lab-tag">Supabase</span><span class="lab-tag"
-              >Groq</span
-            >
-            <span class="lab-tag">ElevenLabs</span>
-          </div>
-          <div class="lab-footer">
-            <a href="https://getsyncly.site" target="_blank" class="lab-link"
-              >Ver landing →</a
-            >
-          </div>
-        </div>
-        <div class="lab-card">
-          <div class="lab-status status-wip">
-            <span class="status-dot"></span>En construcción
-          </div>
-          <div class="lab-name">FerTechPro</div>
-          <div class="lab-desc">
-            Este mismo blog — construido con Astro, deployado en Netlify. De
-            WordPress a performance real.
-          </div>
-          <div class="lab-tags">
-            <span class="lab-tag">Astro</span><span class="lab-tag"
-              >Netlify</span
-            >
-            <span class="lab-tag">Markdown</span>
-          </div>
-          <div class="lab-footer">
-            <a href="https://fertechpro.com" class="lab-link">Ver sitio →</a>
-          </div>
-        </div>
+              <div
+                class={`lab-status ${lab.data.status === "archived" ? "status-study" : lab.data.status === "wip" ? "status-wip" : "status-live"}`}
+              >
+                <span class="status-dot" />
+                {lab.data.status === "archived"
+                  ? "Archivado"
+                  : lab.data.status === "wip"
+                    ? "En construcción"
+                    : "Live"}
+              </div>
+              <div class="lab-name">{lab.data.title}</div>
+              <div class="lab-desc">{lab.data.description}</div>
+              <div class="lab-tags">
+                {lab.data.techStack.slice(0, 5).map((t) => (
+                  <span class="lab-tag">{t}</span>
+                ))}
+              </div>
+              <div class="lab-footer">
+                <span class="lab-link">
+                  {lab.data.status === "archived"
+                    ? "Ver caso →"
+                    : lab.data.status === "wip"
+                      ? "En progreso →"
+                      : "Ver proyecto →"}
+                </span>
+              </div>
+            </a>
+          ))
+        }
       </div>
     </div>
   </section>

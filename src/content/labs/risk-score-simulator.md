@@ -17,6 +17,7 @@ metrics:
   - value: "12"
     label: "Variables de riesgo configurables"
 featured: false
+draft: true
 ---
 
 ## El problema
