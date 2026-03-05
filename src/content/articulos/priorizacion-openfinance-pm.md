@@ -23,7 +23,7 @@ Y ahí es donde entra el PM.
 Cuando la SBS consultó al mercado sobre qué casos de uso consideraban prioritarios, la respuesta fue clara: colocación de créditos, personalización de productos y mejora de modelos de scoring crediticio.
 Los tres casos apuntan al mismo segmento: el usuario que ya tiene huella digital activa pero está subvalorado por los modelos tradicionales de scoring. No es un usuario moroso, sino que su actividad financiera ocurre en plataformas que los modelos convencionales desconocen. Y ese segmento es enorme. 
 
-< solo el 33% de adultos peruanos tiene un crédito en el sistema financiero formal, y solo el 28% de las MYPEs accede a crédito formal. (Fuente SBS)
+> solo el 33% de adultos peruanos tiene un crédito en el sistema financiero formal, y solo el 28% de las MYPEs accede a crédito formal. (Fuente SBS)
 
 Aquí vale una precisión importante. Open Finance no es una solución de inclusión financiera desde cero. El usuario que opera 100% en efectivo, sin ninguna huella digital, sigue siendo invisible para el sistema con o sin Open Finance. El candidato natural de este modelo es otro: el que ya usa Yape, Plin, recibe pagos en billetera digital o tiene cuenta de ahorros, pero que los modelos crediticios tradicionales no logran evaluar bien porque su actividad está fragmentada entre plataformas que no se comunican entre sí.
 

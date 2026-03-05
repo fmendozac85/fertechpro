@@ -44,7 +44,7 @@ function fechaCorta(fecha) {
       <h1 class="page-title">Todos los artículos</h1>
       <p class="page-desc">
         Product Management, Fintech Latam e IA aplicada a producto. Un artículo
-        por semana, cada lunes.
+        por semana.
       </p>
     </div>
   </div>
@@ -169,10 +169,20 @@ function fechaCorta(fecha) {
           <p
             style="font-size:.82rem;color:var(--gray);margin-bottom:1rem;line-height:1.6"
           >
-            Un artículo cada lunes. Sin spam.
+            Un artículo cada semana. Sin spam.
           </p>
-          <input type="email" placeholder="tu@email.com" />
-          <button>Suscribirme →</button>
+          <input
+            type="email"
+            id="nl-email-articulos"
+            placeholder="tu@email.com"
+          />
+          <button onclick="suscribirArticulos()">Suscribirme →</button>
+          <p
+            id="nl-msg-articulos"
+            style="font-size:.75rem;color:var(--mint-dark);display:none;margin-top:.5rem"
+          >
+            ¡Listo! Un artículo cada semana.
+          </p>
         </div>
         <div class="sidebar-card">
           <div class="sidebar-card-title">Más leídos</div>
@@ -675,6 +685,25 @@ function fechaCorta(fecha) {
     }
   }
 </style>
+<script is:inline>
+  async function suscribirArticulos() {
+    const input = document.getElementById("nl-email-articulos");
+    const email = input.value.trim();
+    if (!email) return;
+    try {
+      await fetch(
+        "https://assets.mailerlite.com/jsonp/2165324/forms/181140500292568087/subscribe",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ fields: { email } }),
+        },
+      );
+    } catch (e) {}
+    input.value = "";
+    document.getElementById("nl-msg-articulos").style.display = "block";
+  }
+</script>
 
 <script>
   function setFilter(p, btn) {
