@@ -5,6 +5,7 @@ pilar: ia
 extracto: "El rol de PM esta cambiando mas rapido de lo que la mayoria quiere admitir. No es hype, es una transformacion real."
 lectura: 8
 destacado: true
+draft: true
 ---
 
 El primer parrafo de tu articulo va aqui.

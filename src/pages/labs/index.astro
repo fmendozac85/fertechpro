@@ -149,15 +149,45 @@ const stats = {
           </p>
         </div>
         <form class="nl-band-form" onsubmit="return false;">
-          <input type="email" placeholder="tu@email.com" aria-label="Email" />
-          <button type="submit">Avisar →</button>
+          <input
+            type="email"
+            id="nl-email-labs"
+            placeholder="tu@email.com"
+            aria-label="Email"
+          />
+          <button type="button" onclick="suscribirLabs()">Avisar →</button>
         </form>
+        <p
+          id="nl-msg-labs"
+          style="font-size:.75rem;color:var(--mint-dark);display:none;margin-top:.75rem"
+        >
+          ¡Listo! Te avisamos cuando haya algo nuevo.
+        </p>
       </div>
     </div>
   </div>
 
   <Footer />
 </Base>
+<script is:inline>
+  async function suscribirLabs() {
+    const input = document.getElementById("nl-email-labs");
+    const email = input.value.trim();
+    if (!email) return;
+    try {
+      await fetch(
+        "https://assets.mailerlite.com/jsonp/2165324/forms/181142836900529586/subscribe",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ fields: { email } }),
+        },
+      );
+    } catch (e) {}
+    input.value = "";
+    document.getElementById("nl-msg-labs").style.display = "block";
+  }
+</script>
 
 <!-- ─── FILTER SCRIPT ────────────────────────────────────────────────────── -->
 <script>

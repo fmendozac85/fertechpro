@@ -73,7 +73,7 @@ function fechaCorta(fecha) {
             <div>
               <div class="author-name">Fernando Mendoza</div>
               <div class="author-role">
-                17 años en producto digital · Seguros · Retail · Vta directa ·
+                17 años en producto digital - Seguros · Retail · Vta directa ·
                 Telco
               </div>
             </div>
@@ -108,12 +108,27 @@ function fechaCorta(fecha) {
             <p
               style="font-size:0.82rem;color:var(--gray);line-height:1.6;margin-bottom:.25rem"
             >
-              Un artículo cada lunes. Sin spam.
+              Un artículo cada semana. Sin spam.
             </p>
             <div class="nl-input">
-              <input type="email" placeholder="tu@email.com" />
-              <button>Suscribir</button>
+              <input
+                type="email"
+                id="nl-email-hero"
+                placeholder="tu@email.com"
+              />
+              <button
+                type="button"
+                onclick="suscribir('nl-email-hero', 'nl-msg-hero')"
+              >
+                Suscribir
+              </button>
             </div>
+            <p
+              id="nl-msg-hero"
+              style="font-size:.72rem;color:var(--mint-dark);display:none;margin-top:.5rem"
+            >
+              ¡Listo! Te avisamos cada semana.
+            </p>
           </div>
         </div>
       </div>
@@ -322,27 +337,32 @@ function fechaCorta(fecha) {
     <div class="container">
       <div class="nl-inner">
         <div>
-          <h2 class="nl-title">Un artículo cada lunes</h2>
+          <h2 class="nl-title">Un artículo cada semana</h2>
           <p class="nl-desc">
             Sin spam. Sin listas de tips genéricos. Solo producto, fintech e IA
             con criterio real de alguien que lleva 17 años en esto.
           </p>
         </div>
         <div>
-          <form
-            class="nl-form"
-            action="https://app.mailerlite.com/webforms/landing/TU_FORMULARIO"
-            method="post"
-            target="_blank"
-          >
+          <form class="nl-form" id="nl-form-bottom">
             <input
               type="email"
-              name="email"
+              id="nl-email-bottom"
               placeholder="tu@email.com"
-              required
             />
-            <button type="submit">Suscribirme →</button>
+            <button
+              type="button"
+              onclick="suscribir('nl-email-bottom', 'nl-msg-bottom')"
+            >
+              Suscribirme →
+            </button>
           </form>
+          <p
+            id="nl-msg-bottom"
+            style="font-size:.75rem;color:var(--mint-dark);display:none;margin-top:.75rem"
+          >
+            ¡Listo! Te avisamos cada semana.
+          </p>
           <p class="nl-note" style="margin-top:.75rem">
             Sin spam. Cancela cuando quieras.
           </p>
@@ -352,6 +372,25 @@ function fechaCorta(fecha) {
   </section>
 
   <Footer />
+  <script is:inline>
+    async function suscribir(inputId, msgId) {
+      const input = document.getElementById(inputId);
+      const email = input.value.trim();
+      if (!email) return;
+      try {
+        await fetch(
+          "https://assets.mailerlite.com/jsonp/2165324/forms/181140500292568087/subscribe",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ fields: { email } }),
+          },
+        );
+      } catch (e) {}
+      input.value = "";
+      document.getElementById(msgId).style.display = "block";
+    }
+  </script>
 </Base>
 
 <style>
