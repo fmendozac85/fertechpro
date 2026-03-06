@@ -33,6 +33,7 @@ const urlCanonica = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:title" content={titulo} />
     <meta name="twitter:description" content={descripcion} />
     <meta name="twitter:image" content={new URL(imagen, Astro.site)} />
+    <meta name="author" content="Fernando Mendoza Canta" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -114,6 +115,15 @@ const urlCanonica = new URL(Astro.url.pathname, Astro.site);
         }
       }
     </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Fernando Mendoza Canta",
+        "url": "https://fertechpro.com",
+        "sameAs": ["https://www.linkedin.com/in/fernando-mendoza-canta/"]
+      }
+    </script>
   </head>
   <body>
     <slot />
