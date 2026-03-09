@@ -12,6 +12,7 @@ const {
   tipo = "website",
 } = Astro.props;
 const urlCanonica = new URL(Astro.url.pathname, Astro.site);
+const GA_ID = import.meta.env.PUBLIC_GA_ID;
 ---
 
 <!doctype html>
@@ -124,6 +125,18 @@ const urlCanonica = new URL(Astro.url.pathname, Astro.site);
         "sameAs": ["https://www.linkedin.com/in/fernando-mendoza-canta/"]
       }
     </script>
+     <!-- Google Analytics 👇 agrega esto justo antes del </head> -->
+    {GA_ID && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
+        <script define:vars={{ GA_ID }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', GA_ID);
+        </script>
+      </>
+    )}
   </head>
   <body>
     <slot />

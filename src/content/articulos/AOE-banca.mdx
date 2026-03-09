@@ -1,0 +1,227 @@
+---
+titulo: "Por qué tu banco te ofrece el producto correcto en el momento equivocado — y cómo la IA puede cambiar eso"
+fecha: 2026-03-09
+pilar: fintech
+extracto: "Un análisis del problema de cross-sell en la banca tradicional y una propuesta de solución basada en IA contextual"
+lectura: 13
+destacado: true
+imagen: /imagenes/AOE-banca/featureImg-AOE-banca.png
+draft: true
+---
+import AOEPrototype from '../../components/AOEPrototype.jsx';
+
+## 1. El contexto: la paradoja del banco que sabe mucho pero escucha poco
+
+Los bancos tradicionales tienen acceso a uno de los activos más valiosos del mundo moderno: **datos financieros de comportamiento real**. Conocen el sueldo de sus clientes, patrones de gasto, historial crediticio, con qué frecuencia usan la app y qué productos tienen activos. Pocas industrias tienen acceso a una radiografía tan completa de la vida económica de una persona.
+
+Sin embargo, la mayoría de bancos tradicionales sigue operando con un modelo de oferta comercial que no aprovecha ese potencial. La ausencia de datos no es el problema, sino su uso: los modelos existentes predicen *qué* producto podría querer un cliente, pero ignoran *cuándo* y *en qué contexto* es relevante ofrecerlo. El resultado es una oferta que llega en el momento equivocado, en el canal equivocado, con el mensaje equivocado. Es decir, una venta perdida.
+
+### El dato que revela el problema
+
+Las apps fintech registran un CTR promedio de notificaciones de entre **2.09% y 2.84%** *(Pushwoosh, 2025)*. Sin embargo, cuando las notificaciones son contextuales — ajustadas al momento y comportamiento del usuario — la tasa de apertura salta a **16.3% versus 4.7%** para campañas genéricas *(CleverTap, 2024)*. Mas alla del producto ofrecido, el diferencial está en el momento y la relevancia.
+
+En el Perú, el contexto es aún más relevante: **el uso de banca móvil se triplicó entre 2022 y 2024**, pasando de 13.8% a 43.6% de la población *(OSIPTEL, 2025)*. El canal digital ya es el canal principal — y también el canal donde más oportunidades de cross-sell llaman a la puerta.
+
+---
+
+## 2. La oportunidad de negocio real
+
+Los banco ya saben qué productos ofrecer a sus clientes. De hecho, ya existen modelos de propensión que identifican con buena precisión si un cliente podría tomar un crédito de consumo, una tarjeta de crédito, un seguro de vida o un fondo de inversión. El problema es que esa propensión es **estática**: se calcula en batch (semanal o mensualmente) y dispara ofertas sin considerar lo que el cliente está haciendo en ese momento.
+
+Esto genera tres síntomas concretos:
+
+| Síntoma | Situación actual | Impacto en el negocio |
+|---|---|---|
+| **Oferta descontextualizada** | El cliente lleva tres días consultando su saldo repetidamente — señal de planificación financiera activa. El sistema no lo detecta, o peor, lanza una oferta genérica ya rechazada antes. | Oportunidad perdida. El cliente resuelve su necesidad con otro banco o con un competidor fintech. |
+| **Canal equivocado** | La oferta llega por correo a las 10am cuando el cliente está activo en la app a las 8pm. El banco tiene el dato de cuándo usa el canal, pero no lo usa para decidir cuándo comunicar. | Tasas de apertura bajas, percepción de spam, aumento del opt-out. |
+| **Fricción innecesaria** | Incluso cuando el cliente muestra interés, el proceso de contratación implica varias pantallas con datos que el banco ya tiene. | Abandono en el funnel. El interés existe pero no se convierte. |
+
+---
+
+## 3. Los usuarios del producto
+
+Antes de proponer cualquier solución, es importante tener claridad sobre quiénes son los usuarios del sistema. En este caso hay **dos perfiles distintos**, con necesidades distintas:
+
+### 👤 Usuario primario — el cliente digital del banco
+
+Persona bancarizada, usuaria activa de la app móvil, 25–50 años, con al menos un producto financiero activo.
+
+**Lo que necesita:**
+- Que el banco no lo interrumpa con ofertas irrelevantes
+- Que cuando llegue una oferta, responda a una necesidad real
+- Que contratar el producto nuevo sea simple, en pocos pasos
+
+### ⚙️ Usuario secundario — el equipo comercial y de marketing
+
+Gestores de producto y campañas que hoy definen manualmente qué ofrecer a qué segmento, con ciclos lentos de actualización.
+
+**Lo que necesita:**
+- Visibilidad de qué señales están activando qué ofertas
+- Control sobre qué productos participan en el motor
+- Métricas claras para iterar sin depender del equipo técnico
+
+---
+
+## 4. Visión del producto
+
+> *"La visión no es construir un motor de ventas más inteligente. Es transformar la app del banco de un canal transaccional en un **asesor financiero contextual** — uno que conoce al cliente porque sabe cómo se comporta en su vida financiera real. El banco que llega en el momento correcto, con el producto correcto y el mensaje correcto, se posicionará como quien acompaña a sus clientes y evita cualquier interrupción."*
+
+Esta visión es la dirección que la propia industria bancaria ya ha señalado como destino: evolucionar de aplicaciones transaccionales hacia asesores financieros digitales que acompañen al cliente en sus decisiones. Hoy esa visión tiene los ingredientes técnicos para hacerse realidad. En las secciones siguientes se propone cómo.
+
+---
+
+## 5. La hipótesis de solución
+
+> **Creemos que** el cliente de banca recibe comunicaciones para contratar nuevos productos pero en el momento incorrecto, de baja relevancia y con pasos friccionados para su contratación. **Si** se reemplazan las ofertas basadas en propensión estática por un motor de recomendación contextual que detecte intención en tiempo real a partir de señales de comportamiento digital, **lograremos** colocar mayor cantidad de productos por cross-selling reduciendo además la percepción de spam. **Sabremos si funciona** revisando que la tasa de aceptación de productos cross-sell aumente y que el NPS del canal digital mejore a los 12 meses de implementación.*
+
+Esta hipótesis radica sobre tres supuestos:
+
+1. Los eventos de comportamiento en la app (frecuencia, secuencia, tipo de consulta) son señales de intención medibles y distinguibles del ruido.
+2. El momento del journey importa más que el perfil demográfico para predecir la conversión de una oferta específica.
+3. La personalización del mensaje — no solo del producto — incrementa la conversión cuando el producto y el momento ya son correctos.
+
+Más detalle en la sección "Métricas de éxito".
+
+---
+
+## 6. La solución: Adaptive Offer Engine (AOE)
+
+El AOE es un motor de recomendación contextual que funciona en tiempo real sobre la actividad digital del cliente. No reemplaza los modelos de propensión existentes — los complementa con una capa de inteligencia que detecta cuándo activarlos y cómo comunicarlos.
+
+Está compuesto por **tres capas de IA**, cada una diseñada para resolver una dimensión distinta del problema:
+
+| Capa | ¿Qué resuelve? | Modelo / Algoritmo | Datos de entrada |
+|---|---|---|---|
+| **Capa 1 — Intent Detection** | Detecta si el cliente tiene intención activa o pasiva en un momento dado, a partir de su comportamiento en la app. | LSTM o Transformer sobre clickstream. Analiza la *secuencia* de eventos (no eventos aislados) para inferir intención. | Eventos de sesión: páginas visitadas, tiempo en cada sección, frecuencia de consulta de saldo, búsquedas realizadas. |
+| **Capa 2 — Contextual Ranking** | Decide en tiempo real qué producto ofrecer, en qué canal y en qué momento del journey, aprendiendo de cada interacción. | Multi-Armed Bandit con Thompson Sampling. Aprende *en producción* con cada aceptación o rechazo, sin necesidad de re-entrenamiento. | Señal de intención (Capa 1), productos disponibles para el cliente, historial de ofertas anteriores, contexto temporal. |
+| **Capa 3 — Generative Personalization** | Adapta el copy y el mensaje de la oferta al perfil y momento del usuario. No es el mismo texto para todos los clientes. | LLM fine-tuned (GPT-4o, Claude o similar) con guardrails de compliance regulatorio. Genera variantes dentro de límites aprobados. | Perfil del cliente, producto seleccionado (Capa 2), historial de interacciones, plantillas aprobadas por compliance. |
+
+### Flujo del sistema
+
+```
+Eventos del cliente en la app (clickstream en tiempo real)
+        ↓
+[Capa 1 — LSTM/Transformer]
+→ Detecta: intención activa de producto financiero
+        ↓
+[Capa 2 — Thompson Sampling Bandit]
+→ Decide: ofrecer Crédito de Consumo tiene 71% de prob. de conversión
+        ↓
+[Capa 3 — LLM con guardrails]
+→ Genera: mensaje personalizado según perfil y momento
+        ↓
+Oferta mostrada al cliente
+→ Aceptación / Rechazo → Retroalimenta el Bandit (aprendizaje continuo)
+```
+
+> **Nota importante:** el AOE no solo decide cuándo y qué ofrecer — también decide **cuándo no ofrecer**. Si el cliente está en la sección de soporte, acaba de rechazar una oferta similar, o la señal de intención es baja, el motor suprime la oferta. Esta lógica negativa es tan importante como la positiva para preservar la experiencia del usuario.
+
+<AOEPrototype client:load />
+
+### ¿Qué resuelve el AOE de los síntomas identificados?
+
+| Síntoma | ¿Lo resuelve el AOE? | Cómo |
+|---|---|---|
+| **Oferta descontextualizada** | ✅ Sí — es el core de la solución | La Capa 1 (LSTM) detecta intención en tiempo real; la Capa 2 (Bandit) decide qué producto ofrecer en ese momento específico |
+| **Canal equivocado** | ✅ Sí — como parte del ranking contextual | El Bandit incluye el canal como variable de decisión: aprende en qué canal convierte mejor cada cliente y en qué momento del día |
+| **Fricción innecesaria** | ⚠️ Fuera del scope del AOE | El motor lleva al cliente al momento correcto con el producto correcto, pero la experiencia de contratación posterior depende del diseño del flujo de onboarding digital — una iniciativa complementaria, no parte de este producto |
+
+
+---
+
+## 7. Tamaño de mercado e impacto esperado
+
+Antes de invertir en una iniciativa de IA, un banco necesita entender el impacto potencial en términos de negocio. La métrica más robusta para medir ese impacto no es el ingreso por producto — que varía según el tipo de producto y el banco — sino la **profundidad de relación**: cuántos productos activos tiene en promedio cada cliente.
+
+Esta métrica, conocida en la industria como *products per household*, es el indicador estándar de cross-sell en banca. En EE.UU., bancos como Wells Fargo construyeron toda su estrategia comercial alrededor de ella durante décadas, partiendo de 3.2 productos por hogar en 1998 y alcanzando más de 6 antes de sus problemas de 2016. En banca latinoamericana, los niveles de partida son más bajos — lo que representa una oportunidad mayor.
+
+El siguiente cálculo usa como referencia un banco mediano con **1 millón de usuarios digitales activos**:
+
+| Escenario | Productos / cliente | Productos totales en portafolio |
+|---|---|---|
+| **Baseline (hoy)** | ~2.0 | 2,000,000 |
+| **Con AOE — Fase 1** | ~2.4 (+20%) | 2,400,000 |
+| **Con AOE — Fase 2** | ~2.8 (+40%) | 2,800,000 |
+| **Con AOE — Fase 3** | ~3.0 (+50%) | 3,000,000 |
+
+> 💡 **Nota sobre Fase 3:** el impacto incremental de la personalización generativa es menor en conversión pura — el producto y el momento ya son correctos desde Fase 1. Su valor principal está en reducir la fricción percibida y mejorar la experiencia, lo que se refleja más en NPS y opt-out rate que en productos por cliente.
+
+Un incremento de 0.4 productos por cliente sobre una base de 1 millón de usuarios equivale a **400,000 productos adicionales contratados** — sin adquirir un solo cliente nuevo. La literatura de la industria estima que adquirir un cliente nuevo cuesta entre 5 y 7 veces más que vender un producto adicional a uno existente. Ese es el argumento de negocio central del AOE.
+
+> ⚠️ **Nota metodológica:** el baseline de productos por cliente varía significativamente según el banco y el mercado. El dato correcto debe medirse internamente en la Fase 0.
+
+---
+
+## 8. Roadmap de implementación
+
+Una de las decisiones más importantes es **no construir todo a la vez**. El valor del roadmap no está solo en lo que se prioriza, sino en el orden en que se validan las hipótesis y la velocidad con que se aprende antes de escalar la inversión.
+
+| Fase | Duración | Objetivo | Hipótesis que valida |
+|---|---|---|---|
+| **Fase 0 — Discovery** | 6–8 semanas | Instrumentar eventos de comportamiento. Identificar las 5–8 señales de intención más predictivas. Medir el baseline real. | *"Los eventos de clickstream son señales de intención medibles y distinguibles del ruido."* |
+| **Fase 1 — MVP** | 3 meses | Bandit simple + 3 momentos de journey + oferta en canal in-app. Medir acceptance rate vs. baseline. | *"El momento del journey importa más que el perfil demográfico para la conversión."* |
+| **Fase 2 — Escala** | 6 meses | Incorporar modelo de secuencias (LSTM). Añadir canales: push y email. A/B testing continuo. | *"Múltiples canales sincronizados aumentan la conversión sin incrementar el spam percibido."* |
+| **Fase 3 — Personalización** | 6 meses | Integrar LLM para personalización del mensaje con guardrails de compliance. | *"El copy personalizado incrementa la conversión sobre el producto correcto en el momento correcto."* |
+
+> **Principio de priorización:** el MVP deliberadamente no incluye el modelo de secuencias ni el LLM. El Bandit simple es suficiente para validar la hipótesis central. Si esa hipótesis no se confirma, evitamos una inversión mayor en las capas más complejas. Si se confirma, la evidencia justifica el presupuesto para las fases siguientes.
+
+---
+
+## 9. Métricas de éxito
+
+Las métricas están organizadas en tres capas: las de **producto** miden si el sistema funciona, las de **negocio** miden si importa, y las de **experiencia** miden si no estamos dañando la relación con el cliente.
+
+| Métrica | Baseline referencial | Objetivo Fase 1 | Objetivo Fase 2 | Objetivo Fase 3 | Fuente |
+|---|---|---|---|---|---|
+| Offer Acceptance Rate | ~2.5% | 3.5–3.8% (+40–52%) | 4.0–4.5% (+60–80%) | 4.5–5.0% (+80–100%) | Pushwoosh 2025 |
+| Conversiones cross-sell/mes | Medir en Fase 0 | +40–52% sobre baseline | +60–80% sobre baseline | +80–100% sobre baseline | Medición interna |
+| NPS canal digital | 55–70 *(ref. banca peruana líder)* | +2–3 pts | +3–5 pts | +5–8 pts | BBVA Perú 2024 |
+| Opt-out rate notificaciones | ~2–3% por campaña | Mantener o reducir | Reducir 10% | Reducir 20% | Batch 2025 |
+| Time-to-first-accepted-offer | ~45 días *(estimado sector)* | ~30 días | ~25 días | ~20 días | Benchmark sector |
+
+---
+
+## 10. Habilitadores críticos: Data, Compliance y Seguridad
+
+Una iniciativa de IA como el AOE no se sostiene solo sobre algoritmos. Detrás de cada recomendación hay tres pilares habilitadores que determinan si el sistema puede operar en producción dentro de un banco regulado. Ignorarlos en la fase de diseño es la razón más común por la que proyectos de IA bancarios se detienen en staging y nunca llegan al cliente.
+
+### Datos: la materia prima del sistema
+
+El AOE es tan bueno como los datos que lo alimentan. Para que los modelos de secuencia puedan detectar intención, la app debe estar **correctamente instrumentada**: cada acción del usuario debe registrarse como un evento estructurado con timestamp y contexto.
+
+Los datos clave incluyen: eventos de clickstream en tiempo real, historial de transacciones, productos activos por cliente, historial de ofertas recibidas y su respuesta (aceptada, rechazada, ignorada), y segmento RFM actualizado. Sin un **feature store** bien diseñado que sirva estos datos con latencia menor a 500ms, el motor no puede operar en tiempo real — y pierde su principal ventaja sobre los modelos batch.
+
+> ⚠️ **Deuda técnica frecuente en banca tradicional:** muchos bancos tienen los datos, pero no los tienen accesibles en tiempo real ni en el formato correcto. El trabajo de instrumentación y construcción del feature store suele representar el **40–60% del esfuerzo total de la Fase 0**. 
+
+### Compliance: IA que el banco puede defender
+
+En banca, una oferta generada por IA no es solo un mensaje de marketing — es una comunicación que puede tener implicaciones regulatorias. Los organismos supervisores (SBS en Perú, equivalentes en otros países) exigen que las comunicaciones comerciales sean verídicas, no discriminatorias y que no exploten vulnerabilidades del cliente.
+
+Esto se traduce en tres requisitos de diseño:
+1. El LLM debe operar dentro de **plantillas aprobadas por el equipo legal** (guardrails de contenido).
+2. Los criterios de segmentación no pueden usar variables protegidas como edad, género o condición de salud como factores de exclusión.
+3. El sistema debe ser **auditable**: cada oferta generada debe poder rastrearse a los datos y el modelo que la produjeron.
+
+### Seguridad: proteger la confianza del cliente
+
+Un sistema de recomendación que accede a datos de comportamiento en tiempo real amplía la superficie de ataque si no se diseña con seguridad desde el principio. Los principios clave son:
+
+- **Arquitectura de capas:** el motor de recomendación debe operar separado de los sistemas transaccionales críticos.
+- **Tokenización:** los datos de comportamiento no deben contener información sensible completa.
+- **Control de acceso auditado:** el acceso a los modelos en producción debe estar controlado y registrado.
+
+Un banco que lanza un sistema de IA sin estos controles no solo asume un riesgo técnico — asume un **riesgo reputacional**. La confianza del cliente es el activo más difícil de recuperar en la industria financiera.
+
+---
+
+## Fuentes
+
+- Pushwoosh *Push Notification Benchmarks 2025* — CTR fintech por plataforma
+- CleverTap *Push Notification Report 2024* — Contextual vs. generic campaign performance
+- OSIPTEL Perú, 2025 — Adopción de banca móvil en Perú 2022–2024
+- Batch *Push Notifications Benchmark 2025* — Open rates por industria
+- Google Cloud / BCP Case Study — One-click cross-sell deployment results
+- McKinsey *Rewired in Action* — BCP digital transformation case study
+- BBVA Perú *Informe de Gerencia 3Q2024* — Usuarios móviles activos y NPS
+- Kyndryl / Microsoft Press Release, Nov 2024 — BCP USD 650M infrastructure investment
+- American Banker / Public Citizen, 2016 — Wells Fargo cross-sell ratio histórico (3.2 → 6.1 productos por hogar, 1998–2015), referencia de industria para métrica *products per household*
