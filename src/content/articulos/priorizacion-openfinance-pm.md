@@ -29,7 +29,7 @@ Aquí vale una precisión importante. Open Finance no es una solución de inclus
 
 De hecho, el modelo ya funciona en versión limitada. Yape hoy otorga créditos basándose en el historial transaccional de sus propios usuarios. Rappi y Mercado Pago hacen lo mismo. La prueba de concepto existe y genera resultados reales en el mercado peruano.
 
-El problema es que cada plataforma solo ve sus propios datos. Yape te evalúa con lo que mueves en Yape, sin saber lo que tienes en BCP, en Interbank o en otra billetera. El scoring es real, pero incompleto.
+El problema es que cada plataforma solo ve sus propios datos. Yape te evalúa con lo que mueves en Yape, sin saber lo que tienes en Interbank, Caja Piura o en otras entidades. El scoring es real, pero incompleto.
 Open Finance no inventa el scoring transaccional, lo consolida. Permite unificar ese historial fragmentado con el consentimiento del usuario, dando una visión mucho más completa y justa de su perfil financiero real. Entonces, la pregunta ya no es si el modelo funciona. La pregunta es cómo pasamos del scoring en silos que ya existe al scoring consolidado que Open Finance habilita.
 
 ## La oportunidad
@@ -47,10 +47,12 @@ Ese usuario ya está listo para el siguiente paso.
 ## La secuencia que yo construiría
 Si fuera el PM de una fintech o banco digital en el Perú hoy, mi foco estaría en diseñar una secuencia de adopción, no solo en priorizar casos de uso de forma aislada.
 
-1. **Primer momento** — construir confianza: Un caso de uso simple, de valor inmediato y bajo riesgo percibido. Diseñado específicamente para el usuario sin historial crediticio formal. 
-  **Métrica de éxito:** tasa de activación del consentimiento en el primer intento.
+1. **Primer momento — construir confianza**: Un caso de uso simple, de valor inmediato y bajo riesgo percibido. Diseñado específicamente para el usuario con huella digital pero sin crédito formal. Un ejemplo concreto: una vista de salud financiera personal. El usuario autoriza compartir sus movimientos de Yape y su cuenta de ahorros. A cambio recibe, en segundos, un resumen de cuánto ingresó, cuánto gastó y cuánto podría ahorrar ese mes, basado en su comportamiento real, no en promedios del mercado. No le estás pidiendo que solicite un crédito. Solo le estás mostrando que sus datos tienen valor y que él tiene el control. Este caso además es imposible de replicar sin Open Finance, porque necesita consolidar datos de múltiples plataformas.
 
-2. **Segundo momento** — activar el impacto real: Con esa base de confianza construida, lanzar el scoring alternativo con microsegmentación. No un score genérico, sino uno que entienda que el vendedor de mercado que recibe pagos diarios en Yape tiene un perfil de riesgo completamente distinto al freelancer que factura mensualmente, aunque ambos tengan el mismo ingreso anual. 
+  **Métrica de éxito:** tasa de activación del consentimiento en el primer intento, es decir, cuántos usuarios que llegan a la pantalla de consentimiento efectivamente lo otorgan sin abandonar.
+
+2. **Segundo momento — activar el impacto real**: Con esa base de confianza construida, lanzar el scoring alternativo con microsegmentación. No un score genérico, sino uno que entienda que el vendedor de mercado que recibe pagos diarios en Yape tiene un perfil de riesgo completamente distinto al freelancer que factura mensualmente, aunque ambos tengan el mismo ingreso anual. 
+
   **Métrica de éxito:** tasa de aprobación de créditos a usuarios que previamente habían sido rechazados o no evaluados por modelos tradicionales.
 
 La Hoja de Ruta de la SBS deja espacio para construir exactamente en ese orden. El primer grupo de datos habilitado hacia finales de 2027 y el segundo hacia mediados de 2028 son la ventana para diseñar esa secuencia con intención.
