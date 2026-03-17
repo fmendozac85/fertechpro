@@ -1,10 +1,10 @@
 ---
 titulo: "Ownership: el atributo no negociable de todo buen PM"
-fecha: 2026-03-17
+fecha: 2026-03-05
 pilar: pm
 extracto: "De todas las habilidades que definen a un gran Product Manager, hay una que no se puede enseñar fácilmente ni compensar con otras: el Ownership. Te explico por qué es mi no negociable."
 lectura: 5
-destacado: false
+destacado: true
 imagen: /imagenes/ownership-pm/ownership-featureImage.png
 draft: false
 ---
