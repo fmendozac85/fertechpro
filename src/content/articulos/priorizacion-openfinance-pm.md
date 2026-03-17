@@ -2,7 +2,7 @@
 titulo: "Open Finance llegó al Perú: ¿qué construirías primero si fueras el PM?"
 fecha: 2026-03-05
 pilar: fintech
-extracto: ""
+extracto: "La oportunidad de Open Finance en el Perú y cómo abordaria el reto que los usuarios acepten compartir sus datos."
 lectura: 6
 destacado: true
 imagen: /imagenes/priorizacion-openfinance-pm/FeatureImg-openfinance-pm.png
