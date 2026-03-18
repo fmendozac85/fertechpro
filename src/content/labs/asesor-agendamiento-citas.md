@@ -1,6 +1,6 @@
 ---
 title: "Asesor Agendamiento de Citas"
-description: "Agente inteligente para agendamiento de citas con IA."
+description: "Demo de un Agente inteligente para agendamiento de citas con IA."
 category: ia
 status: live
 startDate: 2025-10-01
@@ -11,10 +11,8 @@ techStack:
   - Google Calendar
 demoUrl: "https://www.youtube.com/watch?v=lNoSUZhFTyg"
 metrics:
-  - value: "200+"
-    label: "Usuarios activos en equipos de crédito"
-  - value: "12"
-    label: "Variables de riesgo configurables"
+  - value: "98%"
+    label: "Satisfacción usuarios"
 featured: false
 ---
 

@@ -12,10 +12,10 @@ techStack:
   - Telegram
 demoUrl: "https://www.youtube.com/watch?v=I9-7j-ZA2Jg&t=1s"
 metrics:
-  - value: "200+"
-    label: "Usuarios activos en equipos de crédito"
-  - value: "12"
-    label: "Variables de riesgo configurables"
+  - value: "80+"
+    label: "Base de departamentos"
+  - value: "98%"
+    label: "Satisfacción usuarios"
 featured: false
 ---
 

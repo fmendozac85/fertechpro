@@ -11,10 +11,10 @@ techStack:
   - Excel/PDF
 demoUrl: "https://www.youtube.com/watch?v=xwwCnrUDWTY"
 metrics:
-  - value: "200+"
-    label: "Usuarios activos en equipos de crédito"
-  - value: "12"
-    label: "Variables de riesgo configurables"
+  - value: "100+"
+    label: "Inventario de productos"
+  - value: "98%"
+    label: "Satisfacción usuarios"
 featured: false
 ---
 
