@@ -22,7 +22,7 @@ metrics:
     label: "Tasa de tareas completadas"
   - value: "4.8/5"
     label: "Satisfacción promedio de los usuarios"
-featured: true
+featured: false
 ---
 
 ## El problema que resuelve
