@@ -23,6 +23,9 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
+# docs privados
+docs/LINKEDIN_GUIDE.md
+
 # videos
 public/imagenes/**/*.mp4
 public/imagenes/**/*.mov
