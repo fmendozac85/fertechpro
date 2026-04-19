@@ -49,20 +49,20 @@ Volvamos al ejemplo del sábado. Semanas después fui a Metro a hacer las compra
 
 - El precio final de mi carrito fue S/. 300.
 - Yo pagué los S/. 300 con mi tarjeta.
-- Metro no recibió los S/. 300 completos. Para un supermercado de alto volumen en Perú, un MDR referencial es ~1.5%, así que Metro recibió aproximadamente **S/. 295.50**.
-- Los **S/. 4.50 del MDR** (~1.5%) se distribuyeron entre todos los participantes de la cadena:
+- Metro no recibió los S/. 300 completos. Para un supermercado en Perú, un MDR referencial es ~3.5%, así que Metro recibió aproximadamente **S/. 289.50**.
+- Los **S/. 10.50 del MDR** (~3.5%) se distribuyeron entre todos los participantes de la cadena:
 
 | Participante | Recibe | Concepto |
 |---|---|---|
-| **Metro** (comercio) | S/. 295.50 | Precio cobrado menos MDR |
-| **Banco Ripley** (banco emisor) | ~S/. 2.10 | Interchange |
-| **Visa** (red de pago) | ~S/. 0.45 | Fee de red |
-| **Niubiz** (adquirente) | ~S/. 1.95 | Fee de procesamiento |
-| **MDR total** | **S/. 4.50** | **~1.5% sobre S/. 300** |
+| **Metro** (comercio) | S/. 289.50 | Precio cobrado menos MDR |
+| **Banco Ripley** (banco emisor) | ~S/. 4.56 | Interchange (~1.52%) |
+| **Visa** (red de pago) | ~S/. 0.45 | Fee de red (~0.15%) |
+| **Niubiz** (adquirente) | ~S/. 5.49 | Fee de procesamiento (~1.83%) |
+| **MDR total** | **S/. 10.50** | **~3.5% sobre S/. 300** |
 
-*(Cifras aproximadas e ilustrativas. El MDR del 1.5% es consistente con la tasa de intercambio promedio de 1.52% reportada por el BCRP para el sector retail en 2024.)*
+*(Cifras aproximadas e ilustrativas. El interchange de ~1.52% es consistente con la tasa promedio reportada por el BCRP para el sector retail en 2024. El MDR total varía según el comercio, tipo de tarjeta y poder de negociación.)*
 
-Bingo. Aquí está el verdadero potencial de monetización. Al facilitar la compra al crédito —y asumir el riesgo de que el usuario no pague— el Banco Ripley cobró S/. 2.10 solo porque decidí usar su tarjeta en un supermercado. Multiplica eso por millones de transacciones diarias en todos los comercios afiliados a Visa en el Perú y el mundo. La oportunidad es gigante. Y ahora entiende por qué había promotores de tarjetas en cada esquina del Jockey Plaza.
+Bingo. Aquí está el verdadero potencial de monetización. Al facilitar la compra al crédito —y asumir el riesgo de que el usuario no pague— el Banco Ripley cobró S/. 4.56 solo porque decidí usar su tarjeta en un supermercado. Multiplica eso por millones de transacciones diarias en todos los comercios afiliados a Visa en el Perú y el mundo. La oportunidad es gigante. Y ahora entiende por qué había promotores de tarjetas en cada esquina del Jockey Plaza.
 
 # Entendiendo el modelo como un PM de Fintech
 
@@ -84,7 +84,7 @@ Ahora veamos el panorama completo. Este flujo de monetización forma parte de 4 
 - **Margen**: no todo revenue es ganancia. Siempre hay costos para sostener el producto y gestionar el riesgo. En pagos, los principales son:
 
     - **Costos de procesamiento**: para que la transacción de S/. 300 en Metro se autorice en segundos, hay una infraestructura enorme detrás — servidores, sistemas de autorización en tiempo real, integraciones con redes como Visa. Todo eso tiene un costo por transacción.
-    - **Default rate**: Niubiz ya liquidó los S/. 295.50 a Metro, y yo —como usuario— aún no le he pagado al banco. Si entro en impago, ese préstamo se convierte en un costo irrecuperable para el banco emisor.
+    - **Default rate**: Niubiz ya liquidó los S/. 289.50 a Metro, y yo —como usuario— aún no le he pagado al banco. Si entro en impago, ese préstamo se convierte en un costo irrecuperable para el banco emisor.
     - **Fraudes**: imagina que alguien clonó los datos de mi tarjeta y realizó esa misma compra de S/. 300 en Metro sin mi autorización. El banco debe asumir ese costo sin haber recibido ni la transacción legítima ni el pago del cliente real.
     - **Chargebacks**: si yo como cliente disputo la transacción ante el banco ("esa compra no la hice yo"), el banco debe iniciar un proceso de reversión. Ese proceso tiene costos operativos y, dependiendo del resultado, también pérdidas directas.
     - **Costos de capital**: el banco financió mis S/. 300 a Metro antes de cobrarme a mí. Ese dinero disponible entre T+0 (el día de la transacción) y mi fecha de pago tiene un costo financiero real.
