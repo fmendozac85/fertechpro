@@ -17,19 +17,12 @@
 
 ### Paleta de colores predominante
 
-Dos registros según el tono del artículo:
-
-**Registro oscuro** (fintech técnico, IA, temas complejos):
-- Fondo: dark teal profundo o navy oscuro (`#0d2b2e` / `#0a1628`)
-- Acento principal: verde esmeralda brillante (elementos destacados, confirmaciones, CTAs)
-- Acento secundario: blanco para texto/UI overlays
-- Mood: sofisticado, tech-forward, nocturno
-
-**Registro claro** (PM, liderazgo, ecosistemas, temas accesibles):
+Registro único para todos los pilares (pm, fintech, ia):
 - Fondo: crema/beige cálido (`#f5f0e8` / `#ede8dc`)
 - Acento principal: naranja ámbar cálido (nodos, detalles, energía)
 - Acento secundario: verde esmeralda (confirmaciones, acciones completadas)
 - Mood: accesible, educativo, warm
+- Avatar de Fernando siempre presente como protagonista
 
 ### Composición y elementos recurrentes
 
@@ -48,41 +41,25 @@ Dos registros según el tono del artículo:
 
 ### Estilo fotográfico / ilustrativo
 
-Dos estilos coexisten según el pilar:
+Estilo único para todos los pilares:
 
-**Flat illustration** (PM, ecosistemas):
+**Flat illustration** (todos los artículos y labs):
 - Vector cartoon, trazo limpio, sin sombras complejas
 - Personaje recurrente: avatar ilustrado de Fernando (hombre latino, gafas cuadradas, camisa azul claro, expresivo)
 - Fondo geométrico simple o texturizado suave
 - Inspiración: estilo editorial de newsletters de producto
 
-**Photo-realistic + digital overlay** (fintech, banca, IA):
-- Foto de persona/mano sosteniendo smartphone, con iluminación dramática oscura
-- Sobre la foto se montan elementos 3D o UI cards flotantes con efecto partículas/red
-- Silueta oscura del sujeto contrasta con los elementos luminosos del overlay
-- Inspiración: marketing de apps fintech (Nubank, Mercado Pago)
-
 ---
 
 ## Estructura base de prompt para Nanobanana
 
-Usar la variante según el pilar del artículo:
+Estructura base única para todos los pilares:
 
-### Registro oscuro (fintech técnico, banca, IA)
-```
-[Elemento central: persona/mano sosteniendo smartphone con UI visible] floating above a dark teal 
-deep background, dramatic moody lighting, [UI cards/nodes floating around the phone with emerald 
-green accents], particle network effect connecting elements, [contexto específico del tema: 
-e.g. payment confirmation screen, banking app, AI interface], photorealistic style with 3D digital 
-overlays, professional fintech aesthetic, high quality, blog feature image, 16:9 ratio
-```
-
-### Registro claro (PM, liderazgo, ecosistemas)
 ```
 Flat vector illustration, [avatar: Latino man with square glasses and light blue shirt, expressive], 
-[elemento central: smartphone con pantalla específica + diagrama de nodos radiando], warm cream 
+[elemento central: objeto o escena específica del tema del artículo], warm cream 
 beige background (#f5f0e8), amber orange accent nodes, emerald green for confirmed/success elements, 
-[etiquetas en nodos: entidades del ecosistema del artículo], clean editorial style, 
+[etiquetas o elementos secundarios relevantes al tema], clean editorial style, 
 high quality, blog feature image, 16:9 ratio
 ```
 
