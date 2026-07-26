@@ -15,6 +15,30 @@ const tagClass = { ia: "tag-ia", fintech: "tag-fintech", pm: "tag-pm" };
 
 const experiencia = [
   {
+    role: "AI Product Manager",
+    company: "BCP — Banca · Perú",
+    period: "2026 — Actualidad",
+    desc: "Lidero el bloque de conversational banking, desde la estrategia de IA hasta la implementación.",
+    tags: [
+      "Conversational banking",
+      "Estrategia de IA",
+      "Banca digital",
+      "LLMs en producción",
+    ],
+  },
+  {
+    role: "Product Consultant & Founder",
+    company: "FerTechPro Product Lab — Consultoría · Perú",
+    period: "2025 — 2026",
+    desc: "Ayudé a pymes a automatizar procesos de negocio con IA, desde el diagnóstico de los procesos hasta la implementación de las soluciones.",
+    tags: [
+      "Automatización con IA",
+      "Pymes",
+      "Consultoría de producto",
+      "LLM workflows",
+    ],
+  },
+  {
     role: "Senior Technical Product Manager",
     company: "Interseguro — Seguros · Perú",
     period: "2024 — 2025",
@@ -84,10 +108,13 @@ const skills = [
   {
     label: "IA aplicada",
     items: [
+      "Claude Code",
+      "Claude Cowork",
       "Prompt engineering",
-      "Claude / GPT-4",
-      "Visual Studio Code",
+      "Agentes y automatización",
+      "Claude / GPT",
       "LLM workflows",
+      "Visual Studio Code",
       "NoCode",
     ],
     highlight: [0, 1],
@@ -109,11 +136,11 @@ const skills = [
 
 <Base
   titulo="Sobre mí — FerTechPro"
-  descripcion="Senior Product Manager con 9 años liderando productos digitales en
-            retail, seguros y consumo masivo — con experiencia en entornos
-            regulados (SBS). Combino visión de
-            producto, base técnica y ejecución ágil para construir productos de
-            alto impacto, y experimento con IA para que ese proceso sea más inteligente."
+  descripcion="AI Product Manager en el BCP, donde lidero el bloque de
+            conversational banking. 9 años liderando productos digitales en banca,
+            seguros, retail y consumo masivo — con experiencia en entornos
+            regulados (SBS). Combino visión de producto, base técnica y ejecución
+            ágil, y aplico IA para que ese proceso sea más inteligente."
 >
   <Nav />
 
@@ -153,19 +180,21 @@ const skills = [
               <rect x="57" y="130" width="46" height="17" rx="2" fill="#4a90c4" opacity=".35"/>
             </svg>-->
           </div>
-          <div class="avatar-badge">✓ Open to work</div>
+          <div class="avatar-badge">AI PM @ BCP</div>
         </div>
 
         <!-- Texto -->
         <div class="about-text">
-          <p class="eyebrow">Senior Product Manager</p>
+          <p class="eyebrow">AI Product Manager · BCP</p>
           <h1 class="about-name">Fernando<br /><em>Mendoza Canta</em></h1>
           <p class="about-tagline">
-            Senior Product Manager con 9 años liderando productos digitales en
-            retail, seguros y consumo masivo — con experiencia en entornos
-            regulados (SBS) y equipos de hasta 45 personas. Combino visión de
-            producto, base técnica y ejecución ágil para construir productos de
-            alto impacto. <br /><strong>Orientado al sector fintech.</strong>
+            Product Manager con 9 años liderando productos digitales en banca,
+            seguros, retail y consumo masivo — con experiencia en entornos
+            regulados (SBS) y equipos de hasta 45 personas. Hoy lidero el bloque
+            de conversational banking con IA en el BCP, combinando visión de
+            producto, base técnica y ejecución ágil. <br /><strong
+              >Producto e IA aplicada en fintech.</strong
+            >
           </p>
           <div class="about-ctas">
             <a
@@ -260,6 +289,14 @@ const skills = [
               satisfacer usuarios más exigentes, ampliar la inclusión financiera
               y ayudar a las organizaciones a competir en un mercado que se
               transforma con nuevos players y open finance.
+            </p>
+
+            <p>
+              En 2026 entré al BCP como <strong>AI Product Manager</strong>,
+              donde lidero el bloque de conversational banking — desde la
+              estrategia de IA hasta la implementación. En la práctica, es el
+              punto donde convergen las tres cosas sobre las que escribo aquí:
+              producto, fintech e IA.
             </p>
 
             <p>
@@ -373,7 +410,7 @@ const skills = [
             {
               dot: "ia",
               title: "IA aplicada a producto",
-              desc: "Cómo los PMs podemos usar IA como herramienta de trabajo, no como buzzword. Desde prompts útiles hasta automatizaciones que ahorran horas reales.",
+              desc: "Cómo los PMs podemos usar IA como herramienta de trabajo, no como buzzword. Desde prompts hasta agentes que ejecutan trabajo real — Claude Code, Cowork y automatizaciones que ahorran horas.",
             },
           ].map((p) => (
             <div class="pillar-card">
@@ -396,8 +433,8 @@ const skills = [
         <div>
           <h2>¿Trabajamos juntos<br /><em>en algo?</em></h2>
           <p>
-            Estoy abierto a conversaciones sobre roles de PM senior, advisory en
-            fintechs, o simplemente intercambiar ideas sobre producto e IA.
+            Estoy abierto a conversaciones sobre producto, IA aplicada y
+            fintech — y a intercambiar ideas con otros PMs de la región.
           </p>
         </div>
         <div class="cta-links">
